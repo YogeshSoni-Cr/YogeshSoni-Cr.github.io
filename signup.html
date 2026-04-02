@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | Core Ranker</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-100 font-sans flex items-center justify-center min-h-screen py-10">
+
+    <div class="bg-white p-8 rounded-xl shadow-lg max-w-md w-full">
+        
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-extrabold text-blue-600 tracking-wider">Core Ranker</h1>
+            <p class="text-gray-500 mt-2">Create your free account to start preparing.</p>
+        </div>
+
+        <form action="#" method="POST">
+            
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 font-semibold mb-2">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Rahul Kumar" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 font-semibold mb-2">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="student@example.com" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="phone" class="block text-gray-700 font-semibold mb-2">Mobile Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="+91 xxxxx xxxxx" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" required>
+            </div>
+
+            <div class="mb-6">
+                <label for="password" class="block text-gray-700 font-semibold mb-2">Create Password</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" required>
+            </div>
+
+            <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+                Create Account
+            </button>
+        </form>
+
+        <div class="text-center mt-6">
+            <p class="text-gray-600">Already have an account? <a href="login.html" class="text-blue-600 font-semibold hover:underline">Log in here</a></p>
+        </div>
+
+        <div class="text-center mt-8">
+            <a href="index.html" class="text-gray-400 hover:text-gray-600 text-sm">← Back to Home</a>
+        </div>
+        
+    </div>
+
+</body>
+</html>
