@@ -15,7 +15,7 @@
             <p class="text-gray-500 mt-2">Create your free account to start preparing.</p>
         </div>
 
-        <form action="#" method="POST">
+        <form id="signup-form">
             
             <div class="mb-4">
                 <label for="name" class="block text-gray-700 font-semibold mb-2">Full Name</label>
@@ -52,5 +52,49 @@
         
     </div>
 
+    <script type="module">
+        // 1. Import Firebase tools from the internet
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        // 2. YOUR FIREBASE CONFIGURATION (Replace these with your exact keys from Firebase!)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDENuRhO2xK9hZK43kFVHmbZR3rz6LHjAY",
+            authDomain: "core-ranker.firebaseapp.com",
+            projectId: "core-ranker",
+            storageBucket: "core-ranker.firebasestorage.app",
+            messagingSenderId: "13358547173",
+            appId: "1:13358547173:web:fe232275125be8e884940c",
+            measurementId: "G-038M2NDM0T"
+        };
+
+        // 3. Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // 4. Handle the Sign Up Button Click
+        const signupForm = document.getElementById('signup-form');
+        
+        signupForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Stops the page from refreshing
+
+            // Get what the user typed in
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Send to Firebase
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Success! 
+                    alert("Account created successfully! Redirecting to login...");
+                    window.location.href = "login.html"; // Send them to the login page
+                })
+                .catch((error) => {
+                    // Failed (e.g., password too short, email already exists)
+                    alert("Error: " + error.message);
+                });
+        });
+    </script>
+    
 </body>
 </html>

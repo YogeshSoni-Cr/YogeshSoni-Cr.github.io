@@ -15,7 +15,7 @@
             <p class="text-gray-500 mt-2">Welcome back! Please login to your account.</p>
         </div>
 
-        <form action="#" method="POST">
+        <form id="login-form">
             <div class="mb-4">
                 <label for="email" class="block text-gray-700 font-semibold mb-2">Email Address</label>
                 <input type="email" id="email" name="email" placeholder="student@example.com" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" required>
@@ -44,6 +44,48 @@
         </div>
         
     </div>
+
+    <script type="module">
+        // 1. Import Firebase tools
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        // 2. YOUR FIREBASE CONFIGURATION (Replace with your exact keys!)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDENuRhO2xK9hZK43kFVHmbZR3rz6LHjAY",
+            authDomain: "core-ranker.firebaseapp.com",
+            projectId: "core-ranker",
+            storageBucket: "core-ranker.firebasestorage.app",
+            messagingSenderId: "13358547173",
+            appId: "1:13358547173:web:fe232275125be8e884940c",
+            measurementId: "G-038M2NDM0T"
+        };
+
+        // 3. Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // 4. Handle the Login Button Click
+        const loginForm = document.getElementById('login-form');
+        
+        loginForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Stops page refresh
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Check Firebase to see if they exist
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Success! Let them in.
+                    window.location.href = "study.html"; // Send them to the study dashboard
+                })
+                .catch((error) => {
+                    // Failed (Wrong password or email)
+                    alert("Login failed: Check your email and password.");
+                });
+        });
+    </script>
 
 </body>
 </html>
