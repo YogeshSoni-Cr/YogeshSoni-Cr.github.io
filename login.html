@@ -4,86 +4,136 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Core Ranker</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 font-sans flex items-center justify-center min-h-screen">
+<body class="bg-gray-50 font-sans min-h-screen flex flex-col relative overflow-hidden selection:bg-blue-200 selection:text-blue-900">
 
-    <div class="bg-white p-8 rounded-xl shadow-lg max-w-md w-full">
-        
-        <div class="text-center mb-8">
-            <h1 class="text-3xl font-extrabold text-blue-600 tracking-wider">Core Ranker</h1>
-            <p class="text-gray-500 mt-2">Welcome back! Please login to your account.</p>
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-40 pointer-events-none">
+        <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl"></div>
+        <div class="absolute top-1/2 -right-32 w-[30rem] h-[30rem] bg-blue-50 rounded-full mix-blend-multiply filter blur-3xl"></div>
+    </div>
+
+    <nav class="p-6 relative z-10">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 group">
+                <div class="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center font-black group-hover:bg-blue-700 transition">C</div>
+                <span class="text-xl font-black tracking-wider text-gray-900 group-hover:text-blue-600 transition">CORE RANKER</span>
+            </a>
+            <a href="index.html" class="text-gray-500 hover:text-gray-900 font-bold text-sm transition flex items-center">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Home
+            </a>
         </div>
+    </nav>
 
-        <form id="login-form">
-            <div class="mb-4">
-                <label for="email" class="block text-gray-700 font-semibold mb-2">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="student@example.com" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" required>
+    <div class="flex-1 flex items-center justify-center p-4 relative z-10">
+        <div class="bg-white p-10 rounded-3xl shadow-xl border border-gray-100 max-w-md w-full">
+            
+            <div class="text-center mb-10">
+                <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-inner">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path></svg>
+                </div>
+                <h1 class="text-3xl font-black text-gray-900">Welcome Back</h1>
+                <p class="text-gray-500 mt-2 font-medium">Log in to access your study materials and mock tests.</p>
             </div>
 
-            <div class="mb-6">
-                <label for="password" class="block text-gray-700 font-semibold mb-2">Password</label>
-                <input type="password" id="password" name="password" placeholder="••••••••" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" required>
-                
-                <div class="text-right mt-1">
-                    <a href="#" class="text-sm text-blue-500 hover:text-blue-700">Forgot Password?</a>
+            <div id="error-box" class="hidden mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
+                    </div>
+                    <div class="ml-3">
+                        <p id="error-message" class="text-sm text-red-700 font-bold"></p>
+                    </div>
                 </div>
             </div>
 
-            <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
-                Sign In
-            </button>
-        </form>
+            <form id="login-form" class="space-y-5">
+                <div>
+                    <label for="email" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2">Email Address</label>
+                    <input type="email" id="email" placeholder="student@example.com" required 
+                        class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition text-gray-800 font-medium">
+                </div>
 
-        <div class="text-center mt-6">
-            <p class="text-gray-600">Don't have an account? <a href="signup.html" class="text-blue-600 font-semibold hover:underline">Sign up for free</a></p>
-        </div>
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label for="password" class="block text-xs font-black text-gray-500 uppercase tracking-widest">Password</label>
+                        <a href="#" class="text-xs font-bold text-blue-600 hover:text-blue-800 transition">Forgot Password?</a>
+                    </div>
+                    <input type="password" id="password" placeholder="••••••••" required 
+                        class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition text-gray-800 font-medium tracking-widest">
+                </div>
 
-        <div class="text-center mt-8">
-            <a href="index.html" class="text-gray-400 hover:text-gray-600 text-sm">← Back to Home</a>
+                <button type="submit" id="submit-btn" class="w-full bg-blue-600 text-white font-bold py-4 px-4 rounded-xl hover:bg-blue-700 transition transform active:scale-95 shadow-lg hover:shadow-blue-200 mt-4">
+                    Sign In to Dashboard
+                </button>
+            </form>
+
+            <div class="text-center mt-8 pt-8 border-t border-gray-100">
+                <p class="text-gray-600 font-medium">Don't have an account? <a href="signup.html" class="text-blue-600 font-black hover:underline ml-1">Sign up for free</a></p>
+            </div>
+            
         </div>
-        
     </div>
 
     <script type="module">
-        // 1. Import Firebase tools
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        // Upgraded to 10.10.0
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 
-        // 2. YOUR FIREBASE CONFIGURATION (Replace with your exact keys!)
+        // YOUR FIREBASE CONFIGURATION
         const firebaseConfig = {
             apiKey: "AIzaSyDENuRhO2xK9hZK43kFVHmbZR3rz6LHjAY",
             authDomain: "core-ranker.firebaseapp.com",
             projectId: "core-ranker",
             storageBucket: "core-ranker.firebasestorage.app",
             messagingSenderId: "13358547173",
-            appId: "1:13358547173:web:fe232275125be8e884940c",
-            measurementId: "G-038M2NDM0T"
+            appId: "1:13358547173:web:fe232275125be8e884940c"
         };
 
-        // 3. Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // 4. Handle the Login Button Click
         const loginForm = document.getElementById('login-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const errorBox = document.getElementById('error-box');
+        const errorMessage = document.getElementById('error-message');
         
-        loginForm.addEventListener('submit', (event) => {
-            event.preventDefault(); // Stops page refresh
+        loginForm.addEventListener('submit', async (event) => {
+            event.preventDefault(); 
+            
+            // UI Loading State
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Signing in...";
+            submitBtn.classList.add('opacity-75', 'cursor-wait');
+            errorBox.classList.add('hidden'); // Hide old errors
 
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
-            // Check Firebase to see if they exist
-            signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    // Success! Let them in.
-                    window.location.href = "dashboard.html"; // Send them to the study dashboard
-                })
-                .catch((error) => {
-                    // Failed (Wrong password or email)
-                    alert("Login failed: Check your email and password.");
-                });
+            try {
+                // Attempt Login
+                await signInWithEmailAndPassword(auth, email, password);
+                // Success
+                window.location.href = "dashboard.html"; 
+            } catch (error) {
+                // Failure UI Reset
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Sign In to Dashboard";
+                submitBtn.classList.remove('opacity-75', 'cursor-wait');
+                
+                // Show Error
+                errorBox.classList.remove('hidden');
+                
+                // Clean up Firebase error messages for the user
+                if (error.code === 'auth/invalid-credential') {
+                    errorMessage.innerText = "Incorrect email or password. Please try again.";
+                } else if (error.code === 'auth/too-many-requests') {
+                    errorMessage.innerText = "Too many failed attempts. Try again later.";
+                } else {
+                    errorMessage.innerText = "Login failed. Please check your connection and try again.";
+                }
+            }
         });
     </script>
 

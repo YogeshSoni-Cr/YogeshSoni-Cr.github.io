@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post GATE Counseling | Core Ranker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans selection:bg-purple-200 selection:text-purple-900">
+
+    <nav class="bg-blue-600 text-white p-4 shadow-md relative z-50">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex-1 flex justify-start">
+                <a href="index.html"><h1 class="text-2xl font-black tracking-wider">CORE RANKER</h1></a>
+            </div>
+
+            <ul class="flex-none flex space-x-8 items-center">
+                <li><a href="index.html" class="font-bold hover:text-blue-200 transition">Home</a></li>
+                
+                <li class="relative group">
+                    <button class="flex items-center font-bold hover:text-blue-200 py-2 transition duration-200">
+                        Resources
+                        <svg class="w-4 h-4 ml-1 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    
+                    <div class="absolute left-1/2 -translate-x-1/2 mt-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top pt-4">
+                        <div class="flex flex-col bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
+                            <a href="study.html" class="px-4 py-3 text-sm font-bold text-gray-700 hover:bg-blue-50 hover:text-blue-700 border-b border-gray-50 transition">Study Material</a>
+                            <a href="pyq.html" class="px-4 py-3 text-sm font-bold text-gray-700 hover:bg-blue-50 hover:text-blue-700 border-b border-gray-50 transition">PYQs</a>
+                            <a href="tests.html" class="px-4 py-3 text-sm font-bold text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition">Mock Tests</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="courses.html" class="flex items-center text-yellow-300 hover:text-yellow-100 font-bold transition">
+                        Courses <span class="ml-2 text-[10px] font-black bg-red-500 text-white px-2 py-0.5 rounded-full animate-pulse">NEW</span>
+                    </a>
+                </li>
+                
+                <li><a href="counseling.html" class="font-bold border-b-2 border-white pb-1 transition">Counseling</a></li>
+            </ul>
+
+            <div class="flex-1 flex justify-end">
+                <div id="auth-menu"></div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-white py-16 border-b border-gray-200 text-center relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-20 pointer-events-none">
+            <div class="absolute -top-24 -left-24 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl"></div>
+            <div class="absolute top-12 -right-24 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-4 relative z-10">
+            <span class="inline-block py-1 px-3 rounded-full bg-purple-50 text-purple-600 text-sm font-bold tracking-widest uppercase mb-4 border border-purple-100">
+                Post Exam Guidance
+            </span>
+            <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-4 tracking-tight">Post GATE Counseling</h2>
+            <p class="text-gray-600 text-lg max-w-2xl mx-auto">Don't waste your GATE score. Make data-driven decisions for IIT/NIT admissions and track active PSU recruitments.</p>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto py-16 px-4 min-h-[50vh] grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <div class="lg:col-span-2 space-y-8">
+            
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="text-2xl font-black text-gray-900 mb-6 border-b pb-4">IIT / NIT M.Tech Cutoff Predictor</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div>
+                        <label class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2">Your GATE Score</label>
+                        <input type="number" id="user-score" placeholder="e.g. 650" min="0" max="1000" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-purple-500 font-bold text-gray-800">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2">Category</label>
+                        <select id="user-category" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-purple-500 font-bold text-gray-800 cursor-pointer">
+                            <option value="General">General</option>
+                            <option value="OBC">OBC-NCL</option>
+                            <option value="SC_ST">SC/ST</option>
+                            <option value="EWS">EWS</option>
+                        </select>
+                    </div>
+                    <div class="flex items-end">
+                        <button id="btn-predict" onclick="predictCutoffs()" class="w-full bg-purple-600 text-white font-black py-3 rounded-xl hover:bg-purple-700 transition shadow-md">Predict Now</button>
+                    </div>
+                </div>
+                
+                <p id="predictor-error" class="text-red-500 font-bold text-sm hidden mb-4">Please enter a valid GATE score.</p>
+
+                <div id="results-container" class="border rounded-xl overflow-hidden mt-6 hidden">
+                    <div class="bg-gray-50 px-4 py-3 border-b text-xs font-black text-gray-500 uppercase tracking-widest flex justify-between">
+                        <span>Institute & Specialization</span>
+                        <span>Admission Chance</span>
+                    </div>
+                    <div id="results-list" class="divide-y divide-gray-100 bg-white">
+                        </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <div class="flex justify-between items-center mb-6 border-b pb-4">
+                    <h3 class="text-2xl font-black text-gray-900">PSU Interview Experiences</h3>
+                    <button onclick="alert('Full Archive coming soon!')" class="text-sm text-purple-600 font-bold hover:underline">View All Archive</button>
+                </div>
+                <div class="space-y-4">
+                    <div onclick="openInterview('ongc')" class="p-4 border border-gray-100 rounded-xl hover:shadow-md hover:border-purple-200 transition cursor-pointer bg-gray-50 hover:bg-white group">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-gray-900 group-hover:text-purple-600 transition">ONGC Graduate Trainee 2023</h4>
+                            <span class="text-xs font-bold text-gray-400 bg-white px-2 py-1 rounded border">Mech</span>
+                        </div>
+                        <p class="text-sm text-gray-600 line-clamp-2">"The panel consisted of 5 members. Most questions revolved around my final year project on Centrifugal Pumps..."</p>
+                    </div>
+                    <div onclick="openInterview('barc')" class="p-4 border border-gray-100 rounded-xl hover:shadow-md hover:border-purple-200 transition cursor-pointer bg-gray-50 hover:bg-white group">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-gray-900 group-hover:text-purple-600 transition">BARC Scientific Officer Panel 4</h4>
+                            <span class="text-xs font-bold text-gray-400 bg-white px-2 py-1 rounded border">Mech</span>
+                        </div>
+                        <p class="text-sm text-gray-600 line-clamp-2">"They asked me to write down the Navier-Stokes equation on the board and derive it for a steady flow..."</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="space-y-8">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="text-lg font-black text-gray-900 mb-4 flex items-center border-b pb-4">
+                    <svg class="w-5 h-5 mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15"></path></svg>
+                    Active PSU Recruitments
+                </h3>
+                <ul class="space-y-4">
+                    <li class="border-b border-gray-50 pb-4">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-bold text-gray-800 text-sm">HPCL Officer 2026</h4>
+                            <span class="bg-green-100 text-green-700 text-[10px] font-black px-2 py-0.5 rounded uppercase">Open</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">Through GATE 2026. Last date: 15th April</p>
+                        <a href="https://hindustanpetroleum.com/" target="_blank" class="text-xs text-purple-600 font-bold hover:underline mt-2 inline-block">Official Website &rarr;</a>
+                    </li>
+                    <li class="border-b border-gray-50 pb-4">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-bold text-gray-800 text-sm">NTPC Executive Trainee</h4>
+                            <span class="bg-yellow-100 text-yellow-700 text-[10px] font-black px-2 py-0.5 rounded uppercase">Soon</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">Expected notification next week.</p>
+                    </li>
+                    <li>
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-bold text-gray-800 text-sm">BHEL Engineer Trainee</h4>
+                            <span class="bg-red-100 text-red-700 text-[10px] font-black px-2 py-0.5 rounded uppercase">Closed</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">Interview calls released.</p>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="bg-purple-50 p-6 rounded-2xl border border-purple-100">
+                <h4 class="font-black text-purple-900 mb-2">Need 1-on-1 Guidance?</h4>
+                <p class="text-sm text-purple-700 mb-4 font-medium">Book a mock interview session with Ex-PSU panelists to perfect your communication skills.</p>
+                <button onclick="openBookingModal()" class="w-full bg-purple-600 text-white font-bold py-3 rounded-xl hover:bg-purple-700 transition shadow-sm">Book Mentorship Session</button>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="content-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-8 relative flex flex-col max-h-[90vh]">
+            <button onclick="closeContentModal()" class="absolute top-6 right-6 text-gray-400 hover:text-gray-800 bg-gray-50 p-2 rounded-full transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div id="modal-body" class="overflow-y-auto pr-2">
+                </div>
+        </div>
+    </div>
+
+    <footer class="bg-gray-900 text-white py-12 text-center border-t-4 border-blue-500">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-2xl font-black tracking-widest text-blue-400 mb-6">CORE RANKER</h2>
+            <p class="text-gray-400 mb-8">Engineered for your success. Comprehensive study materials and realistic test environments for future core engineers.</p>
+            <p class="text-xs text-gray-600">&copy; 2026 Core Ranker. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Cutoff Predictor Logic
+        const mockDatabase = [
+            { inst: "IIT Bombay", spec: "Thermal Engineering", cutoffs: { General: 720, OBC: 650, SC_ST: 500, EWS: 690 } },
+            { inst: "IIT Bombay", spec: "Design Engineering", cutoffs: { General: 760, OBC: 680, SC_ST: 540, EWS: 720 } },
+            { inst: "IIT Delhi", spec: "Design", cutoffs: { General: 750, OBC: 670, SC_ST: 520, EWS: 710 } },
+            { inst: "IIT Madras", spec: "Manufacturing", cutoffs: { General: 680, OBC: 620, SC_ST: 450, EWS: 650 } },
+            { inst: "NIT Trichy", spec: "Thermal Power", cutoffs: { General: 610, OBC: 550, SC_ST: 400, EWS: 580 } },
+            { inst: "NIT Surathkal", spec: "Mechatronics", cutoffs: { General: 590, OBC: 530, SC_ST: 380, EWS: 560 } },
+            { inst: "NIT Warangal", spec: "Machine Design", cutoffs: { General: 630, OBC: 570, SC_ST: 410, EWS: 600 } }
+        ];
+
+        function predictCutoffs() {
+            const scoreInput = document.getElementById('user-score').value;
+            const category = document.getElementById('user-category').value;
+            const errorMsg = document.getElementById('predictor-error');
+            const resultsContainer = document.getElementById('results-container');
+            const resultsList = document.getElementById('results-list');
+            const btn = document.getElementById('btn-predict');
+
+            if (!scoreInput || scoreInput < 0 || scoreInput > 1000) {
+                errorMsg.classList.remove('hidden');
+                resultsContainer.classList.add('hidden');
+                return;
+            }
+
+            errorMsg.classList.add('hidden');
+            const score = parseInt(scoreInput);
+            
+            // Visual loading effect
+            btn.innerText = "Analyzing Data...";
+            btn.classList.add('opacity-75');
+
+            setTimeout(() => {
+                resultsList.innerHTML = "";
+                let matchesFound = 0;
+
+                // Sort database based on how close the user is to the cutoff
+                const sortedDB = mockDatabase.map(item => {
+                    const reqCutoff = item.cutoffs[category];
+                    const difference = score - reqCutoff;
+                    let chance = "";
+                    let badgeClass = "";
+
+                    if (difference >= 0) {
+                        chance = "High Chance";
+                        badgeClass = "bg-green-100 text-green-700 border-green-200";
+                    } else if (difference >= -40) {
+                        chance = "Borderline";
+                        badgeClass = "bg-yellow-100 text-yellow-700 border-yellow-200";
+                    } else if (difference >= -80) {
+                        chance = "Low Chance";
+                        badgeClass = "bg-red-100 text-red-700 border-red-200";
+                    }
+
+                    return { ...item, difference, chance, badgeClass, reqCutoff };
+                }).filter(item => item.chance !== ""); // Only show ones with a chance
+
+                // Sort best chances first
+                sortedDB.sort((a, b) => b.difference - a.difference);
+
+                if (sortedDB.length === 0) {
+                    resultsList.innerHTML = `<div class="p-6 text-center text-gray-500 font-bold">Score is too low for the top IITs/NITs in our database. Focus on state universities!</div>`;
+                } else {
+                    sortedDB.slice(0, 5).forEach(item => {
+                        resultsList.innerHTML += `
+                            <div class="px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition">
+                                <div>
+                                    <p class="font-black text-gray-900">${item.inst} - ${item.spec}</p>
+                                    <p class="text-xs text-gray-500 mt-1 font-bold">Past Cutoff: ${item.reqCutoff}</p>
+                                </div>
+                                <span class="text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-lg border ${item.badgeClass}">${item.chance}</span>
+                            </div>
+                        `;
+                    });
+                }
+
+                resultsContainer.classList.remove('hidden');
+                btn.innerText = "Predict Now";
+                btn.classList.remove('opacity-75');
+            }, 600); // Fake delay for smooth UI feel
+        }
+
+        // 2. Modal Logic (Interviews & Booking)
+        function openContentModal(htmlContent) {
+            document.getElementById('modal-body').innerHTML = htmlContent;
+            document.getElementById('content-modal').classList.remove('hidden');
+        }
+
+        function closeContentModal() {
+            document.getElementById('content-modal').classList.add('hidden');
+        }
+
+        function openInterview(type) {
+            let content = "";
+            if(type === 'ongc') {
+                content = `
+                    <span class="bg-blue-100 text-blue-800 text-[10px] font-black px-2 py-1 rounded uppercase tracking-wider">Interview Archive</span>
+                    <h2 class="text-3xl font-black text-gray-900 mt-4 mb-2">ONGC Graduate Trainee - 2023</h2>
+                    <p class="text-gray-500 font-bold mb-6 border-b pb-4">Panel: 5 Members • Duration: 25 mins • Status: Selected</p>
+                    <div class="space-y-4 text-gray-700 leading-relaxed">
+                        <p><strong class="text-gray-900">Technical Questions:</strong><br>
+                        1. Explain the working of a Centrifugal Pump. Draw the velocity triangles.<br>
+                        2. What is cavitation? How do you prevent it in industrial setups?<br>
+                        3. Difference between Rankine cycle and Brayton cycle.</p>
+                        
+                        <p><strong class="text-gray-900">HR Questions:</strong><br>
+                        1. Why ONGC instead of joining an M.Tech program at an IIT?<br>
+                        2. Are you willing to work in offshore rigs for 14-day shifts?</p>
+                        
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 mt-6">
+                            <p class="text-sm font-bold text-gray-800">Candidate Tip:</p>
+                            <p class="text-sm text-gray-600 mt-1">Be very thorough with your B.Tech final year project. 40% of my interview was based solely on my project thesis.</p>
+                        </div>
+                    </div>
+                `;
+            } else if(type === 'barc') {
+                content = `
+                    <span class="bg-blue-100 text-blue-800 text-[10px] font-black px-2 py-1 rounded uppercase tracking-wider">Interview Archive</span>
+                    <h2 class="text-3xl font-black text-gray-900 mt-4 mb-2">BARC Scientific Officer - 2023</h2>
+                    <p class="text-gray-500 font-bold mb-6 border-b pb-4">Panel: 6 Scientists • Duration: 55 mins • Status: Waitlisted</p>
+                    <div class="space-y-4 text-gray-700 leading-relaxed">
+                        <p><strong class="text-gray-900">Experience:</strong><br>
+                        The interview was extremely technical. They didn't ask a single HR question. They handed me a chalk and asked me to go to the blackboard immediately.</p>
+                        
+                        <p><strong class="text-gray-900">Questions:</strong><br>
+                        1. Write the Navier-Stokes equation. Cancel out terms for a steady, 1D, incompressible flow.<br>
+                        2. Draw the T-S diagram for water. Show the critical point. What happens exactly at the critical point?<br>
+                        3. Explain the concept of entropy without using mathematical formulas.</p>
+                    </div>
+                `;
+            }
+            openContentModal(content);
+        }
+
+        function openBookingModal() {
+            const content = `
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h2 class="text-3xl font-black text-gray-900 mb-2">Schedule a Session</h2>
+                    <p class="text-gray-500 mb-8">Select a date and time to mock interview with an Ex-PSU panelist.</p>
+                </div>
+                
+                <form onsubmit="alert('Session booked! We will email you the meeting link.'); closeContentModal(); return false;" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2">Select Date</label>
+                        <input type="date" required class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-purple-500 font-bold text-gray-800">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2">Target PSU</label>
+                        <select class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-purple-500 font-bold text-gray-800 cursor-pointer">
+                            <option>ONGC / IOCL / HPCL</option>
+                            <option>BARC / ISRO / DRDO</option>
+                            <option>General Mock</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full bg-purple-600 text-white font-black py-4 rounded-xl hover:bg-purple-700 transition shadow-md mt-4">Confirm Booking (Free)</button>
+                </form>
+            `;
+            openContentModal(content);
+        }
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, initializeFirestore } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDENuRhO2xK9hZK43kFVHmbZR3rz6LHjAY",
+            authDomain: "core-ranker.firebaseapp.com",
+            projectId: "core-ranker",
+            storageBucket: "core-ranker.firebasestorage.app",
+            messagingSenderId: "13358547173",
+            appId: "1:13358547173:web:fe232275125be8e884940c"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = initializeFirestore(app, { experimentalForceLongPolling: true });
+        const authMenu = document.getElementById('auth-menu');
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                let initial = "S";
+                let photoUrl = null;
+                
+                try {
+                    const docRef = doc(db, "users", user.uid);
+                    const docSnap = await getDoc(docRef);
+                    if(docSnap.exists()) {
+                        const fullName = docSnap.data().name || "Student";
+                        initial = fullName.charAt(0).toUpperCase();
+                        photoUrl = docSnap.data().photoURL || null;
+                    }
+                } catch(e) {}
+
+                let iconHTML = photoUrl 
+                    ? `<img src="${photoUrl}" class="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm">`
+                    : `<div class="w-10 h-10 bg-white rounded-full flex items-center justify-center font-black text-blue-700 shadow-sm">${initial}</div>`;
+
+                authMenu.innerHTML = `
+                    <div class="relative group border-l pl-6 border-blue-400 list-none z-50">
+                        <div class="cursor-pointer select-none">${iconHTML}</div>
+                        
+                        <div class="absolute right-0 mt-0 w-40 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top pt-4">
+                            <div class="bg-white rounded-xl shadow-xl border border-gray-100 p-2 flex flex-col gap-1">
+                                <a href="dashboard.html" class="w-full px-4 py-3 text-sm font-bold text-gray-700 hover:bg-gray-50 hover:text-blue-600 text-left rounded-lg transition flex items-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                                    Dashboard
+                                </a>
+                                <div class="border-t border-gray-100"></div>
+                                <button id="logout-btn" class="w-full px-4 py-3 text-sm font-bold text-red-600 hover:bg-red-50 hover:text-red-700 text-left rounded-lg transition flex items-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                                    Logout
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                document.getElementById('logout-btn').addEventListener('click', () => {
+                    signOut(auth).then(() => { window.location.reload(); });
+                });
+
+            } else {
+                authMenu.innerHTML = `<a href="login.html" class="bg-white text-blue-600 px-6 py-2 rounded-full font-bold hover:bg-blue-50 shadow-sm transition transform hover:scale-105">Login</a>`;
+            }
+        });
+    </script>
+</body>
+</html>

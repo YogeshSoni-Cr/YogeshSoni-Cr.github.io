@@ -1,56 +1,89 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up | Core Ranker</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 font-sans flex items-center justify-center min-h-screen py-10">
+<body class="bg-gray-50 font-sans min-h-screen flex flex-col relative overflow-hidden selection:bg-blue-200 selection:text-blue-900">
 
-    <div class="bg-white p-8 rounded-xl shadow-lg max-w-md w-full">
-        
-        <div class="text-center mb-8">
-            <h1 class="text-3xl font-extrabold text-blue-600 tracking-wider">Core Ranker</h1>
-            <p class="text-gray-500 mt-2">Create your free account to start preparing.</p>
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-40 pointer-events-none">
+        <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl"></div>
+        <div class="absolute top-1/2 -right-32 w-[30rem] h-[30rem] bg-blue-50 rounded-full mix-blend-multiply filter blur-3xl"></div>
+    </div>
+
+    <nav class="p-6 relative z-10">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 group">
+                <div class="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center font-black group-hover:bg-blue-700 transition">C</div>
+                <span class="text-xl font-black tracking-wider text-gray-900 group-hover:text-blue-600 transition">CORE RANKER</span>
+            </a>
+            <a href="index.html" class="text-gray-500 hover:text-gray-900 font-bold text-sm transition flex items-center">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Home
+            </a>
         </div>
+    </nav>
 
-        <form id="signup-form">
+    <div class="flex-1 flex items-center justify-center p-4 relative z-10 py-10">
+        <div class="bg-white p-10 rounded-3xl shadow-xl border border-gray-100 max-w-md w-full">
             
-            <div class="mb-4">
-                <label for="name" class="block text-gray-700 font-semibold mb-2">Full Name</label>
-                <input type="text" id="name" name="name" placeholder="Rahul Kumar" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" required>
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-inner">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+                </div>
+                <h1 class="text-3xl font-black text-gray-900">Create Account</h1>
+                <p class="text-gray-500 mt-2 font-medium">Join Core Ranker to start your preparation.</p>
             </div>
 
-            <div class="mb-4">
-                <label for="email" class="block text-gray-700 font-semibold mb-2">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="student@example.com" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" required>
+            <div id="error-box" class="hidden mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
+                    </div>
+                    <div class="ml-3">
+                        <p id="error-message" class="text-sm text-red-700 font-bold"></p>
+                    </div>
+                </div>
             </div>
 
-            <div class="mb-4">
-                <label for="phone" class="block text-gray-700 font-semibold mb-2">Mobile Number</label>
-                <input type="tel" id="phone" name="phone" placeholder="+91 xxxxx xxxxx" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" required>
+            <form id="signup-form" class="space-y-4">
+                
+                <div>
+                    <label for="name" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2">Full Name</label>
+                    <input type="text" id="name" placeholder="Rahul Kumar" required 
+                        class="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition text-gray-800 font-medium">
+                </div>
+
+                <div>
+                    <label for="email" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2">Email Address</label>
+                    <input type="email" id="email" placeholder="student@example.com" required 
+                        class="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition text-gray-800 font-medium">
+                </div>
+
+                <div>
+                    <label for="phone" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2">Mobile Number</label>
+                    <input type="tel" id="phone" placeholder="+91 xxxxx xxxxx" required 
+                        class="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition text-gray-800 font-medium">
+                </div>
+
+                <div>
+                    <label for="password" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2">Create Password</label>
+                    <input type="password" id="password" placeholder="••••••••" required 
+                        class="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition text-gray-800 font-medium tracking-widest">
+                </div>
+
+                <button type="submit" id="submit-btn" class="w-full bg-blue-600 text-white font-bold py-4 px-4 rounded-xl hover:bg-blue-700 transition transform active:scale-95 shadow-lg hover:shadow-blue-200 mt-6">
+                    Create Free Account
+                </button>
+            </form>
+
+            <div class="text-center mt-8 pt-6 border-t border-gray-100">
+                <p class="text-gray-600 font-medium">Already have an account? <a href="login.html" class="text-blue-600 font-black hover:underline ml-1">Log in here</a></p>
             </div>
-
-            <div class="mb-6">
-                <label for="password" class="block text-gray-700 font-semibold mb-2">Create Password</label>
-                <input type="password" id="password" name="password" placeholder="••••••••" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" required>
-            </div>
-
-            <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
-                Create Account
-            </button>
-        </form>
-
-        <div class="text-center mt-6">
-            <p class="text-gray-600">Already have an account? <a href="login.html" class="text-blue-600 font-semibold hover:underline">Log in here</a></p>
+            
         </div>
-
-        <div class="text-center mt-8">
-            <a href="index.html" class="text-gray-400 hover:text-gray-600 text-sm">← Back to Home</a>
-        </div>
-        
     </div>
 
     <script type="module">
@@ -64,23 +97,26 @@
             projectId: "core-ranker",
             storageBucket: "core-ranker.firebasestorage.app",
             messagingSenderId: "13358547173",
-            appId: "1:13358547173:web:fe232275125be8e884940c",
-            measurementId: "G-038M2NDM0T"
+            appId: "1:13358547173:web:fe232275125be8e884940c"
         };
     
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        // Force long polling to prevent connection hangs
         const db = initializeFirestore(app, { experimentalForceLongPolling: true });
     
         const signupForm = document.getElementById('signup-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const errorBox = document.getElementById('error-box');
+        const errorMessage = document.getElementById('error-message');
         
         signupForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const btn = e.target.querySelector('button');
-            btn.disabled = true;
-            btn.innerText = "Creating Account...";
+            // UI Loading State
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Creating Account...";
+            submitBtn.classList.add('opacity-75', 'cursor-wait');
+            errorBox.classList.add('hidden'); // Hide old errors
     
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
@@ -101,18 +137,30 @@
                     createdAt: new Date()
                 });
     
-                alert("Registration Successful!");
+                // Success - Redirect directly to dashboard without alert
                 window.location.href = "dashboard.html";
     
-            } catch (err) {
-                console.error(err);
-                alert("Signup Error: " + err.message);
-                btn.disabled = false;
-                btn.innerText = "Create Account";
+            } catch (error) {
+                // Failure UI Reset
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Create Free Account";
+                submitBtn.classList.remove('opacity-75', 'cursor-wait');
+                
+                // Show Error
+                errorBox.classList.remove('hidden');
+                
+                // Clean up Firebase error messages for the user
+                if (error.code === 'auth/email-already-in-use') {
+                    errorMessage.innerText = "An account with this email already exists.";
+                } else if (error.code === 'auth/weak-password') {
+                    errorMessage.innerText = "Password is too weak. Please use at least 6 characters.";
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage.innerText = "Please enter a valid email address.";
+                } else {
+                    errorMessage.innerText = "Registration failed. Please try again.";
+                }
             }
         });
     </script>
-
-    
 </body>
 </html>
