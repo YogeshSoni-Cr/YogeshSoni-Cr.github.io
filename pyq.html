@@ -11,12 +11,14 @@
     <nav class="bg-blue-600 text-white p-4 shadow-md">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <a href="index.html"><h1 class="text-2xl font-bold tracking-wider">Core Ranker</h1></a>
-            <ul class="flex space-x-6 items-center">
+            <ul class="flex space-x-6 items-center" id="nav-links">
                 <li><a href="index.html" class="hover:text-blue-200">Home</a></li>
-                <li><a href="study.html" class="hover:text-blue-200">Study Notes</a></li>
+                <li><a href="study.html" class="hover:text-blue-200">Study Material</a></li>
                 <li><a href="pyq.html" class="text-blue-200 font-bold border-b-2 border-blue-200 pb-1">PYQs</a></li>
-                <li><a href="tests.html" class="hover:text-blue-200">Mock Tests</a></li>
-                <li><a href="login.html" class="bg-white text-blue-600 px-4 py-2 rounded-full font-bold hover:bg-blue-50 transition">Login</a></li>
+                <li><a href="test.html" class="hover:text-blue-200">Mock Tests</a></li>
+                
+                <div id="auth-menu">
+                    </div>
             </ul>
         </div>
     </nav>
@@ -129,6 +131,57 @@
     <footer class="bg-gray-800 text-white py-8 text-center mt-12">
         <p>&copy; 2026 Core Ranker. Built for Future Engineers.</p>
     </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        // YOUR FIREBASE CONFIGURATION (Replace with your actual keys)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDENuRhO2xK9hZK43kFVHmbZR3rz6LHjAY",
+            authDomain: "core-ranker.firebaseapp.com",
+            projectId: "core-ranker",
+            storageBucket: "core-ranker.firebasestorage.app",
+            messagingSenderId: "13358547173",
+            appId: "1:13358547173:web:fe232275125be8e884940c",
+            measurementId: "G-038M2NDM0T"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const authMenu = document.getElementById('auth-menu');
+
+        // Check if the user is logged in or out
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // USER IS LOGGED IN -> Show Profile & Logout
+                authMenu.innerHTML = `
+                    <li class="flex items-center gap-4 border-l pl-6 border-blue-400 list-none">
+                        <a href="dashboard.html" class="flex items-center gap-2 cursor-pointer hover:text-blue-200">
+                            <div class="w-8 h-8 bg-blue-800 rounded-full flex items-center justify-center font-bold">R</div>
+                            <span class="font-bold hidden md:inline">Dashboard</span>
+                        </a>
+                        <button id="logout-btn" class="text-sm bg-blue-700 hover:bg-blue-800 px-3 py-1 rounded transition">Logout</button>
+                    </li>
+                `;
+
+                // Make the logout button actually work
+                document.getElementById('logout-btn').addEventListener('click', () => {
+                    signOut(auth).then(() => {
+                        window.location.href = "index.html"; // Send to home after logout
+                    });
+                });
+
+            } else {
+                // USER IS LOGGED OUT -> Show Login Button
+                authMenu.innerHTML = `
+                    <li class="list-none">
+                        <a href="login.html" class="bg-white text-blue-600 px-4 py-2 rounded-full font-bold hover:bg-blue-50 transition">Login</a>
+                    </li>
+                `;
+            }
+        });
+    </script>
 
 </body>
 </html>

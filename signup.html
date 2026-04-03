@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -53,11 +54,10 @@
     </div>
 
     <script type="module">
-        // 1. Import Firebase tools from the internet
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-
-        // 2. YOUR FIREBASE CONFIGURATION (Replace these with your exact keys from Firebase!)
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+        import { initializeFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+    
         const firebaseConfig = {
             apiKey: "AIzaSyDENuRhO2xK9hZK43kFVHmbZR3rz6LHjAY",
             authDomain: "core-ranker.firebaseapp.com",
@@ -67,34 +67,52 @@
             appId: "1:13358547173:web:fe232275125be8e884940c",
             measurementId: "G-038M2NDM0T"
         };
-
-        // 3. Initialize Firebase
+    
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-
-        // 4. Handle the Sign Up Button Click
+        // Force long polling to prevent connection hangs
+        const db = initializeFirestore(app, { experimentalForceLongPolling: true });
+    
         const signupForm = document.getElementById('signup-form');
         
-        signupForm.addEventListener('submit', (event) => {
-            event.preventDefault(); // Stops the page from refreshing
-
-            // Get what the user typed in
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = e.target.querySelector('button');
+            btn.disabled = true;
+            btn.innerText = "Creating Account...";
+    
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-
-            // Send to Firebase
-            createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    // Success! 
-                    alert("Account created successfully! Redirecting to login...");
-                    window.location.href = "login.html"; // Send them to the login page
-                })
-                .catch((error) => {
-                    // Failed (e.g., password too short, email already exists)
-                    alert("Error: " + error.message);
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+    
+            try {
+                // Step 1: Create Auth User
+                const res = await createUserWithEmailAndPassword(auth, email, password);
+                
+                // Step 2: Save to Firestore
+                await setDoc(doc(db, "users", res.user.uid), {
+                    name: name,
+                    phone: phone,
+                    email: email,
+                    branch: "Mechanical",
+                    target: "GATE 2025",
+                    createdAt: new Date()
                 });
+    
+                alert("Registration Successful!");
+                window.location.href = "dashboard.html";
+    
+            } catch (err) {
+                console.error(err);
+                alert("Signup Error: " + err.message);
+                btn.disabled = false;
+                btn.innerText = "Create Account";
+            }
         });
     </script>
+
     
 </body>
 </html>
