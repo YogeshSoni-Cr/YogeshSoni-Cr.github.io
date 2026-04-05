@@ -8,26 +8,25 @@
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans selection:bg-blue-200 selection:text-blue-900">
 
-    <nav class="bg-blue-600 text-white p-4 shadow-md relative z-50">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
+    <nav class="bg-blue-600 text-white shadow-md relative z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
             
-            <div class="flex-1 flex justify-start">
+            <div class="flex justify-start">
                 <a href="index.html"><h1 class="text-2xl font-black tracking-wider">CORE RANKER</h1></a>
             </div>
 
-            <ul class="flex-none flex space-x-8 items-center">
+            <ul class="hidden md:flex space-x-8 items-center">
                 <li><a href="index.html" class="font-bold hover:text-blue-200 transition">Home</a></li>
                 
                 <li class="relative group">
-                    <button class="flex items-center font-bold border-b-2 border-white pb-1 transition duration-200">
+                    <button class="flex items-center font-bold hover:text-blue-200 py-2 transition duration-200">
                         Resources
                         <svg class="w-4 h-4 ml-1 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
-                    
                     <div class="absolute left-1/2 -translate-x-1/2 mt-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top pt-4">
                         <div class="flex flex-col bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
                             <a href="study.html" class="px-4 py-3 text-sm font-bold text-gray-700 hover:bg-blue-50 hover:text-blue-700 border-b border-gray-50 transition">Study Material</a>
-                            <a href="pyq.html" class="px-4 py-3 text-sm font-bold text-blue-700 bg-blue-50 border-b border-gray-50 transition">PYQs</a>
+                            <a href="pyq.html" class="px-4 py-3 text-sm font-bold text-gray-700 hover:bg-blue-50 hover:text-blue-700 border-b border-gray-50 transition">PYQs</a>
                             <a href="tests.html" class="px-4 py-3 text-sm font-bold text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition">Mock Tests</a>
                         </div>
                     </div>
@@ -38,14 +37,34 @@
                         Courses <span class="ml-2 text-[10px] font-black bg-red-500 text-white px-2 py-0.5 rounded-full animate-pulse">NEW</span>
                     </a>
                 </li>
+                
+                <li><a href="counseling.html" class="font-bold hover:text-blue-200 transition">Counseling</a></li>
             </ul>
 
-            <div class="flex-1 flex justify-end">
-                <div id="auth-menu">
-                    <a href="login.html" class="bg-white text-blue-600 px-6 py-2 rounded-full font-bold hover:bg-blue-50 shadow-sm transition transform hover:scale-105">Login</a>
-                </div>
+            <div class="hidden md:flex justify-end">
+                <div id="auth-menu-desktop"></div>
             </div>
 
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-btn" class="text-white hover:text-blue-200 focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-blue-700 border-t border-blue-500 absolute w-full left-0 shadow-2xl">
+            <div class="flex flex-col">
+                <a href="index.html" class="px-6 py-4 font-bold border-b border-blue-600 hover:bg-blue-800">Home</a>
+                <a href="study.html" class="px-6 py-4 font-bold border-b border-blue-600 hover:bg-blue-800">Study Material</a>
+                <a href="pyq.html" class="px-6 py-4 font-bold border-b border-blue-600 hover:bg-blue-800">PYQs & Solutions</a>
+                <a href="tests.html" class="px-6 py-4 font-bold border-b border-blue-600 hover:bg-blue-800">Mock Tests</a>
+                <a href="courses.html" class="px-6 py-4 font-bold border-b border-blue-600 hover:bg-blue-800 flex items-center justify-between">
+                    Premium Courses <span class="text-[10px] font-black bg-red-500 text-white px-2 py-0.5 rounded-full animate-pulse">NEW</span>
+                </a>
+                <a href="counseling.html" class="px-6 py-4 font-bold border-b border-blue-600 hover:bg-blue-800">Post GATE Counseling</a>
+                
+                <div id="auth-menu-mobile" class="px-6 py-5 bg-blue-800"></div>
+            </div>
         </div>
     </nav>
 
@@ -163,36 +182,78 @@
         let currentUserStatus = false;
 
         // AUTHENTICATION OBSERVER
+        const authMenuDesktop = document.getElementById('auth-menu-desktop');
+        const authMenuMobile = document.getElementById('auth-menu-mobile');
+
         onAuthStateChanged(auth, async (user) => {
-            currentUserStatus = !!user;
             if (user) {
-                let initial = "R";
+                let initial = "S";
+                let photoUrl = null;
+                
                 try {
-                    const userDoc = await getDoc(doc(db, "users", user.uid));
-                    if(userDoc.exists() && userDoc.data().name) {
-                        initial = userDoc.data().name.charAt(0).toUpperCase();
+                    const docRef = doc(db, "users", user.uid);
+                    const docSnap = await getDoc(docRef);
+                    currentUserStatus = true;
+                    if(docSnap.exists()) {
+                        const fullName = docSnap.data().name || "Student";
+                        initial = fullName.charAt(0).toUpperCase();
+                        photoUrl = docSnap.data().photoURL || null;
                     }
                 } catch(e) {}
 
-                authMenu.innerHTML = `
-                    <div class="flex items-center gap-4 border-l pl-6 border-blue-400 list-none">
-                        <a href="dashboard.html" class="flex items-center gap-2 cursor-pointer hover:text-blue-200 transition">
-                            <div class="w-9 h-9 bg-blue-800 rounded-full flex items-center justify-center font-bold text-white shadow-inner">${initial}</div>
-                            <span class="font-bold hidden md:inline text-white">Dashboard</span>
-                        </a>
-                        <button id="logout-btn" class="text-sm bg-blue-700 text-white hover:bg-blue-800 px-4 py-2 rounded-full font-bold transition shadow-sm">Logout</button>
-                    </div>
-                `;
+                let iconHTML = photoUrl 
+                    ? `<img src="${photoUrl}" class="w-9 h-9 rounded-full object-cover border-2 border-white shadow-sm">`
+                    : `<div class="w-9 h-9 bg-white rounded-full flex items-center justify-center font-black text-blue-700 shadow-sm">${initial}</div>`;
 
-                document.getElementById('logout-btn').addEventListener('click', () => {
+                // Desktop View (Hover Dropdown)
+                if(authMenuDesktop) {
+                    authMenuDesktop.innerHTML = `
+                        <div class="relative group border-l pl-6 border-blue-400 list-none z-50">
+                            <div class="cursor-pointer select-none">${iconHTML}</div>
+                            <div class="absolute right-0 mt-0 w-40 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top pt-4">
+                                <div class="bg-white rounded-xl shadow-xl border border-gray-100 p-2 flex flex-col gap-1">
+                                    <a href="dashboard.html" class="w-full px-4 py-3 text-sm font-bold text-gray-700 hover:bg-gray-50 hover:text-blue-600 text-left rounded-lg transition flex items-center">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                                        Dashboard
+                                    </a>
+                                    <div class="border-t border-gray-100"></div>
+                                    <button onclick="triggerLogout()" class="w-full px-4 py-3 text-sm font-bold text-red-600 hover:bg-red-50 hover:text-red-700 text-left rounded-lg transition flex items-center">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                                        Logout
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // Mobile View (Stacked Buttons inside Hamburger)
+                if(authMenuMobile) {
+                    authMenuMobile.innerHTML = `
+                        <div class="flex items-center gap-3 mb-4">
+                            ${iconHTML}
+                            <span class="font-bold text-white">My Account</span>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <a href="dashboard.html" class="w-full bg-blue-700 text-white font-bold py-3 rounded-xl text-center border border-blue-600 hover:bg-blue-600 transition">Go to Dashboard</a>
+                            <button onclick="triggerLogout()" class="w-full bg-red-500 text-white font-bold py-3 rounded-xl hover:bg-red-600 transition">Logout</button>
+                        </div>
+                    `;
+                }
+
+                // Make logout accessible globally
+                window.triggerLogout = () => {
                     signOut(auth).then(() => { window.location.reload(); });
-                });
+                };
+                fetchPyqs();
+
             } else {
-                authMenu.innerHTML = `<a href="login.html" class="bg-white text-blue-600 px-6 py-2 rounded-full font-bold hover:bg-blue-50 shadow-sm transition transform hover:scale-105">Login</a>`;
+                const loginBtn = `<a href="login.html" class="w-full inline-block text-center bg-white text-blue-600 px-6 py-3 rounded-full font-bold hover:bg-blue-50 shadow-sm transition">Login / Sign Up</a>`;
+                if(authMenuDesktop) authMenuDesktop.innerHTML = loginBtn;
+                if(authMenuMobile) authMenuMobile.innerHTML = loginBtn;
+                currentUserStatus = false;
+                fetchPyqs();
             }
-            
-            // Reload the list so buttons update
-            fetchPyqs();
         });
 
         // FETCH DATA
@@ -317,6 +378,13 @@
         window.showChoiceView = () => { document.getElementById('auth-login-view').classList.add('hidden'); document.getElementById('auth-choice-view').classList.remove('hidden'); };
         window.openAuthModal = () => { showChoiceView(); document.getElementById('auth-modal').className = "fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm"; };
         window.closeAuthModal = () => { document.getElementById('auth-modal').className = "fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4"; };
+    </script>
+
+    <script>
+        // Hamburger Menu Toggle Logic
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
     </script>
 </body>
 </html>

@@ -8,13 +8,14 @@
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans selection:bg-purple-200 selection:text-purple-900">
 
-    <nav class="bg-blue-600 text-white p-4 shadow-md relative z-50">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <div class="flex-1 flex justify-start">
+    <nav class="bg-blue-600 text-white shadow-md relative z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            
+            <div class="flex justify-start">
                 <a href="index.html"><h1 class="text-2xl font-black tracking-wider">CORE RANKER</h1></a>
             </div>
 
-            <ul class="flex-none flex space-x-8 items-center">
+            <ul class="hidden md:flex space-x-8 items-center">
                 <li><a href="index.html" class="font-bold hover:text-blue-200 transition">Home</a></li>
                 
                 <li class="relative group">
@@ -22,7 +23,6 @@
                         Resources
                         <svg class="w-4 h-4 ml-1 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
-                    
                     <div class="absolute left-1/2 -translate-x-1/2 mt-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top pt-4">
                         <div class="flex flex-col bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
                             <a href="study.html" class="px-4 py-3 text-sm font-bold text-gray-700 hover:bg-blue-50 hover:text-blue-700 border-b border-gray-50 transition">Study Material</a>
@@ -41,34 +41,53 @@
                 <li><a href="counseling.html" class="font-bold border-b-2 border-white pb-1 transition">Counseling</a></li>
             </ul>
 
-            <div class="flex-1 flex justify-end">
-                <div id="auth-menu"></div>
+            <div class="hidden md:flex justify-end">
+                <div id="auth-menu-desktop"></div>
+            </div>
+
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-btn" class="text-white hover:text-blue-200 focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-blue-700 border-t border-blue-500 absolute w-full left-0 shadow-2xl">
+            <div class="flex flex-col">
+                <a href="index.html" class="px-6 py-4 font-bold border-b border-blue-600 hover:bg-blue-800">Home</a>
+                <a href="study.html" class="px-6 py-4 font-bold border-b border-blue-600 hover:bg-blue-800">Study Material</a>
+                <a href="pyq.html" class="px-6 py-4 font-bold border-b border-blue-600 hover:bg-blue-800">PYQs & Solutions</a>
+                <a href="tests.html" class="px-6 py-4 font-bold border-b border-blue-600 hover:bg-blue-800">Mock Tests</a>
+                <a href="courses.html" class="px-6 py-4 font-bold border-b border-blue-600 hover:bg-blue-800 flex items-center justify-between">
+                    Premium Courses <span class="text-[10px] font-black bg-red-500 text-white px-2 py-0.5 rounded-full animate-pulse">NEW</span>
+                </a>
+                <a href="counseling.html" class="px-6 py-4 font-bold text-yellow-300 bg-blue-800 border-b border-blue-600">Post GATE Counseling</a>
+                
+                <div id="auth-menu-mobile" class="px-6 py-5 bg-blue-800"></div>
             </div>
         </div>
     </nav>
-
-    <header class="bg-white py-16 border-b border-gray-200 text-center relative overflow-hidden">
+    <header class="bg-white py-12 md:py-16 border-b border-gray-200 text-center relative overflow-hidden px-4">
         <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-20 pointer-events-none">
             <div class="absolute -top-24 -left-24 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl"></div>
             <div class="absolute top-12 -right-24 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl"></div>
         </div>
 
-        <div class="max-w-4xl mx-auto px-4 relative z-10">
-            <span class="inline-block py-1 px-3 rounded-full bg-purple-50 text-purple-600 text-sm font-bold tracking-widest uppercase mb-4 border border-purple-100">
+        <div class="max-w-4xl mx-auto relative z-10">
+            <span class="inline-block py-1 px-3 rounded-full bg-purple-50 text-purple-600 text-xs md:text-sm font-bold tracking-widest uppercase mb-4 border border-purple-100">
                 Post Exam Guidance
             </span>
-            <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-4 tracking-tight">Post GATE Counseling</h2>
-            <p class="text-gray-600 text-lg max-w-2xl mx-auto">Don't waste your GATE score. Make data-driven decisions for IIT/NIT admissions and track active PSU recruitments.</p>
+            <h2 class="text-3xl md:text-5xl font-black text-gray-900 mb-4 tracking-tight">Post GATE Counseling</h2>
+            <p class="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">Don't waste your GATE score. Make data-driven decisions for IIT/NIT admissions and track active PSU recruitments.</p>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto py-16 px-4 min-h-[50vh] grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <main class="max-w-6xl mx-auto py-10 md:py-16 px-4 min-h-[50vh] grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         <div class="lg:col-span-2 space-y-8">
             
-            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-                <h3 class="text-2xl font-black text-gray-900 mb-6 border-b pb-4">IIT / NIT M.Tech Cutoff Predictor</h3>
-                
+            <div class="bg-white p-5 md:p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="text-xl md:text-2xl font-black text-gray-900 mb-6 border-b pb-4">IIT / NIT M.Tech Cutoff Predictor</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                     <div>
                         <label class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2">Your GATE Score</label>
@@ -88,37 +107,37 @@
                     </div>
                 </div>
                 
-                <p id="predictor-error" class="text-red-500 font-bold text-sm hidden mb-4">Please enter a valid GATE score.</p>
+                <p id="predictor-error" class="text-red-500 font-bold text-sm hidden mb-4">Please enter a valid GATE score between 0 and 1000.</p>
 
-                <div id="results-container" class="border rounded-xl overflow-hidden mt-6 hidden">
-                    <div class="bg-gray-50 px-4 py-3 border-b text-xs font-black text-gray-500 uppercase tracking-widest flex justify-between">
-                        <span>Institute & Specialization</span>
-                        <span>Admission Chance</span>
+                <div id="results-container" class="border rounded-xl overflow-hidden mt-6 hidden shadow-inner bg-gray-50">
+                    <div class="bg-gray-100 px-4 py-3 border-b text-[10px] md:text-xs font-black text-gray-500 uppercase tracking-widest flex justify-between">
+                        <span>Institute & Spec</span>
+                        <span>Chance</span>
                     </div>
-                    <div id="results-list" class="divide-y divide-gray-100 bg-white">
+                    <div id="results-list" class="divide-y divide-gray-100 bg-white max-h-[400px] overflow-y-auto">
                         </div>
                 </div>
             </div>
 
-            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-                <div class="flex justify-between items-center mb-6 border-b pb-4">
-                    <h3 class="text-2xl font-black text-gray-900">PSU Interview Experiences</h3>
+            <div class="bg-white p-5 md:p-8 rounded-2xl shadow-sm border border-gray-100">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 border-b pb-4 gap-2">
+                    <h3 class="text-xl md:text-2xl font-black text-gray-900">Counseling & Interviews</h3>
                     <button onclick="alert('Full Archive coming soon!')" class="text-sm text-purple-600 font-bold hover:underline">View All Archive</button>
                 </div>
                 <div class="space-y-4">
                     <div onclick="openInterview('ongc')" class="p-4 border border-gray-100 rounded-xl hover:shadow-md hover:border-purple-200 transition cursor-pointer bg-gray-50 hover:bg-white group">
                         <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-gray-900 group-hover:text-purple-600 transition">ONGC Graduate Trainee 2023</h4>
-                            <span class="text-xs font-bold text-gray-400 bg-white px-2 py-1 rounded border">Mech</span>
+                            <h4 class="font-bold text-gray-900 group-hover:text-purple-600 transition text-sm md:text-base">ONGC Graduate Trainee 2023</h4>
+                            <span class="text-[10px] md:text-xs font-bold text-gray-400 bg-white px-2 py-1 rounded border">Mech</span>
                         </div>
-                        <p class="text-sm text-gray-600 line-clamp-2">"The panel consisted of 5 members. Most questions revolved around my final year project on Centrifugal Pumps..."</p>
+                        <p class="text-xs md:text-sm text-gray-600 line-clamp-2">"The panel consisted of 5 members. Most questions revolved around my final year project on Centrifugal Pumps and basic thermodynamics..."</p>
                     </div>
                     <div onclick="openInterview('barc')" class="p-4 border border-gray-100 rounded-xl hover:shadow-md hover:border-purple-200 transition cursor-pointer bg-gray-50 hover:bg-white group">
                         <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-gray-900 group-hover:text-purple-600 transition">BARC Scientific Officer Panel 4</h4>
-                            <span class="text-xs font-bold text-gray-400 bg-white px-2 py-1 rounded border">Mech</span>
+                            <h4 class="font-bold text-gray-900 group-hover:text-purple-600 transition text-sm md:text-base">BARC Scientific Officer Panel 4</h4>
+                            <span class="text-[10px] md:text-xs font-bold text-gray-400 bg-white px-2 py-1 rounded border">Mech</span>
                         </div>
-                        <p class="text-sm text-gray-600 line-clamp-2">"They asked me to write down the Navier-Stokes equation on the board and derive it for a steady flow..."</p>
+                        <p class="text-xs md:text-sm text-gray-600 line-clamp-2">"They asked me to write down the Navier-Stokes equation on the board and derive it for a steady, incompressible flow..."</p>
                     </div>
                 </div>
             </div>
@@ -126,52 +145,57 @@
         </div>
 
         <div class="space-y-8">
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <div class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-gray-100">
                 <h3 class="text-lg font-black text-gray-900 mb-4 flex items-center border-b pb-4">
-                    <svg class="w-5 h-5 mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15"></path></svg>
+                    <svg class="w-5 h-5 mr-2 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15"></path></svg>
                     Active PSU Recruitments
                 </h3>
                 <ul class="space-y-4">
                     <li class="border-b border-gray-50 pb-4">
                         <div class="flex justify-between items-start">
                             <h4 class="font-bold text-gray-800 text-sm">HPCL Officer 2026</h4>
-                            <span class="bg-green-100 text-green-700 text-[10px] font-black px-2 py-0.5 rounded uppercase">Open</span>
+                            <span class="bg-green-100 text-green-700 text-[10px] font-black px-2 py-0.5 rounded uppercase ml-2">Open</span>
                         </div>
                         <p class="text-xs text-gray-500 mt-1">Through GATE 2026. Last date: 15th April</p>
-                        <a href="https://hindustanpetroleum.com/" target="_blank" class="text-xs text-purple-600 font-bold hover:underline mt-2 inline-block">Official Website &rarr;</a>
+                        <a href="https://hindustanpetroleum.com/" target="_blank" class="text-xs text-purple-600 font-bold hover:underline mt-2 inline-block">Official Notification &rarr;</a>
                     </li>
                     <li class="border-b border-gray-50 pb-4">
                         <div class="flex justify-between items-start">
                             <h4 class="font-bold text-gray-800 text-sm">NTPC Executive Trainee</h4>
-                            <span class="bg-yellow-100 text-yellow-700 text-[10px] font-black px-2 py-0.5 rounded uppercase">Soon</span>
+                            <span class="bg-yellow-100 text-yellow-700 text-[10px] font-black px-2 py-0.5 rounded uppercase ml-2">Soon</span>
                         </div>
                         <p class="text-xs text-gray-500 mt-1">Expected notification next week.</p>
                     </li>
                     <li>
                         <div class="flex justify-between items-start">
                             <h4 class="font-bold text-gray-800 text-sm">BHEL Engineer Trainee</h4>
-                            <span class="bg-red-100 text-red-700 text-[10px] font-black px-2 py-0.5 rounded uppercase">Closed</span>
+                            <span class="bg-red-100 text-red-700 text-[10px] font-black px-2 py-0.5 rounded uppercase ml-2">Closed</span>
                         </div>
                         <p class="text-xs text-gray-500 mt-1">Interview calls released.</p>
                     </li>
                 </ul>
             </div>
             
-            <div class="bg-purple-50 p-6 rounded-2xl border border-purple-100">
-                <h4 class="font-black text-purple-900 mb-2">Need 1-on-1 Guidance?</h4>
-                <p class="text-sm text-purple-700 mb-4 font-medium">Book a mock interview session with Ex-PSU panelists to perfect your communication skills.</p>
-                <button onclick="openBookingModal()" class="w-full bg-purple-600 text-white font-bold py-3 rounded-xl hover:bg-purple-700 transition shadow-sm">Book Mentorship Session</button>
+            <div class="bg-purple-50 p-5 md:p-6 rounded-2xl border border-purple-200 shadow-sm relative overflow-hidden">
+                <div class="absolute -right-4 -top-4 w-20 h-20 bg-white opacity-40 rounded-full blur-xl"></div>
+                <h4 class="font-black text-purple-900 mb-2">1-on-1 Mentorship</h4>
+                <p class="text-xs md:text-sm text-purple-700 mb-4 font-medium leading-relaxed">Book a 45-minute live counseling or mock interview session. Get direct guidance from Ex-PSU Panelists.</p>
+                <div class="flex items-center justify-between mb-4 bg-white p-3 rounded-xl border border-purple-100">
+                    <span class="text-2xl font-black text-purple-900">₹500</span>
+                    <span class="text-[10px] md:text-xs font-bold text-purple-600 uppercase tracking-wider">Per Session</span>
+                </div>
+                <button onclick="openBookingModal()" class="w-full bg-purple-600 text-white font-bold py-3 rounded-xl hover:bg-purple-700 transition shadow-md relative z-10">Schedule Session</button>
             </div>
         </div>
 
     </main>
 
     <div id="content-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
-        <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-8 relative flex flex-col max-h-[90vh]">
-            <button onclick="closeContentModal()" class="absolute top-6 right-6 text-gray-400 hover:text-gray-800 bg-gray-50 p-2 rounded-full transition">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-5 md:p-8 relative flex flex-col max-h-[90vh]">
+            <button onclick="closeContentModal()" class="absolute top-4 right-4 md:top-6 md:right-6 text-gray-400 hover:text-gray-800 bg-gray-50 p-2 rounded-full transition z-10">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
-            <div id="modal-body" class="overflow-y-auto pr-2">
+            <div id="modal-body" class="overflow-y-auto pr-2 mt-4 md:mt-0">
                 </div>
         </div>
     </div>
@@ -179,137 +203,63 @@
     <footer class="bg-gray-900 text-white py-12 text-center border-t-4 border-blue-500">
         <div class="max-w-4xl mx-auto px-4">
             <h2 class="text-2xl font-black tracking-widest text-blue-400 mb-6">CORE RANKER</h2>
-            <p class="text-gray-400 mb-8">Engineered for your success. Comprehensive study materials and realistic test environments for future core engineers.</p>
+            <p class="text-gray-400 mb-8 text-sm md:text-base">Engineered for your success. Comprehensive study materials and realistic test environments for future core engineers.</p>
             <p class="text-xs text-gray-600">&copy; 2026 Core Ranker. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // 1. Cutoff Predictor Logic
-        const mockDatabase = [
-            { inst: "IIT Bombay", spec: "Thermal Engineering", cutoffs: { General: 720, OBC: 650, SC_ST: 500, EWS: 690 } },
-            { inst: "IIT Bombay", spec: "Design Engineering", cutoffs: { General: 760, OBC: 680, SC_ST: 540, EWS: 720 } },
-            { inst: "IIT Delhi", spec: "Design", cutoffs: { General: 750, OBC: 670, SC_ST: 520, EWS: 710 } },
-            { inst: "IIT Madras", spec: "Manufacturing", cutoffs: { General: 680, OBC: 620, SC_ST: 450, EWS: 650 } },
-            { inst: "NIT Trichy", spec: "Thermal Power", cutoffs: { General: 610, OBC: 550, SC_ST: 400, EWS: 580 } },
-            { inst: "NIT Surathkal", spec: "Mechatronics", cutoffs: { General: 590, OBC: 530, SC_ST: 380, EWS: 560 } },
-            { inst: "NIT Warangal", spec: "Machine Design", cutoffs: { General: 630, OBC: 570, SC_ST: 410, EWS: 600 } }
-        ];
+        // Hamburger Menu Toggle Logic
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
 
-        function predictCutoffs() {
-            const scoreInput = document.getElementById('user-score').value;
-            const category = document.getElementById('user-category').value;
-            const errorMsg = document.getElementById('predictor-error');
-            const resultsContainer = document.getElementById('results-container');
-            const resultsList = document.getElementById('results-list');
-            const btn = document.getElementById('btn-predict');
-
-            if (!scoreInput || scoreInput < 0 || scoreInput > 1000) {
-                errorMsg.classList.remove('hidden');
-                resultsContainer.classList.add('hidden');
-                return;
-            }
-
-            errorMsg.classList.add('hidden');
-            const score = parseInt(scoreInput);
-            
-            // Visual loading effect
-            btn.innerText = "Analyzing Data...";
-            btn.classList.add('opacity-75');
-
-            setTimeout(() => {
-                resultsList.innerHTML = "";
-                let matchesFound = 0;
-
-                // Sort database based on how close the user is to the cutoff
-                const sortedDB = mockDatabase.map(item => {
-                    const reqCutoff = item.cutoffs[category];
-                    const difference = score - reqCutoff;
-                    let chance = "";
-                    let badgeClass = "";
-
-                    if (difference >= 0) {
-                        chance = "High Chance";
-                        badgeClass = "bg-green-100 text-green-700 border-green-200";
-                    } else if (difference >= -40) {
-                        chance = "Borderline";
-                        badgeClass = "bg-yellow-100 text-yellow-700 border-yellow-200";
-                    } else if (difference >= -80) {
-                        chance = "Low Chance";
-                        badgeClass = "bg-red-100 text-red-700 border-red-200";
-                    }
-
-                    return { ...item, difference, chance, badgeClass, reqCutoff };
-                }).filter(item => item.chance !== ""); // Only show ones with a chance
-
-                // Sort best chances first
-                sortedDB.sort((a, b) => b.difference - a.difference);
-
-                if (sortedDB.length === 0) {
-                    resultsList.innerHTML = `<div class="p-6 text-center text-gray-500 font-bold">Score is too low for the top IITs/NITs in our database. Focus on state universities!</div>`;
-                } else {
-                    sortedDB.slice(0, 5).forEach(item => {
-                        resultsList.innerHTML += `
-                            <div class="px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition">
-                                <div>
-                                    <p class="font-black text-gray-900">${item.inst} - ${item.spec}</p>
-                                    <p class="text-xs text-gray-500 mt-1 font-bold">Past Cutoff: ${item.reqCutoff}</p>
-                                </div>
-                                <span class="text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-lg border ${item.badgeClass}">${item.chance}</span>
-                            </div>
-                        `;
-                    });
-                }
-
-                resultsContainer.classList.remove('hidden');
-                btn.innerText = "Predict Now";
-                btn.classList.remove('opacity-75');
-            }, 600); // Fake delay for smooth UI feel
-        }
-
-        // 2. Modal Logic (Interviews & Booking)
-        function openContentModal(htmlContent) {
+        // ----------------------------------------------------
+        // 3. UI MODALS (Interviews & Booking)
+        // ----------------------------------------------------
+        window.openContentModal = (htmlContent) => {
             document.getElementById('modal-body').innerHTML = htmlContent;
             document.getElementById('content-modal').classList.remove('hidden');
-        }
+        };
 
-        function closeContentModal() {
+        window.closeContentModal = () => {
             document.getElementById('content-modal').classList.add('hidden');
-        }
+        };
 
-        function openInterview(type) {
+        window.openInterview = (type) => {
             let content = "";
             if(type === 'ongc') {
                 content = `
-                    <span class="bg-blue-100 text-blue-800 text-[10px] font-black px-2 py-1 rounded uppercase tracking-wider">Interview Archive</span>
-                    <h2 class="text-3xl font-black text-gray-900 mt-4 mb-2">ONGC Graduate Trainee - 2023</h2>
-                    <p class="text-gray-500 font-bold mb-6 border-b pb-4">Panel: 5 Members • Duration: 25 mins • Status: Selected</p>
-                    <div class="space-y-4 text-gray-700 leading-relaxed">
-                        <p><strong class="text-gray-900">Technical Questions:</strong><br>
+                    <span class="bg-blue-100 text-blue-800 text-[10px] font-black px-2 py-1 rounded uppercase tracking-wider">Counseling Archive</span>
+                    <h2 class="text-2xl md:text-3xl font-black text-gray-900 mt-4 mb-2">ONGC Graduate Trainee - 2023</h2>
+                    <p class="text-xs md:text-sm text-gray-500 font-bold mb-6 border-b pb-4">Panel: 5 Members • Duration: 25 mins • Status: Selected</p>
+                    <div class="space-y-4 text-gray-700 leading-relaxed font-medium text-sm md:text-base">
+                        <p><strong class="text-gray-900 font-black">Technical Questions:</strong><br>
                         1. Explain the working of a Centrifugal Pump. Draw the velocity triangles.<br>
                         2. What is cavitation? How do you prevent it in industrial setups?<br>
                         3. Difference between Rankine cycle and Brayton cycle.</p>
                         
-                        <p><strong class="text-gray-900">HR Questions:</strong><br>
+                        <p><strong class="text-gray-900 font-black">HR Questions:</strong><br>
                         1. Why ONGC instead of joining an M.Tech program at an IIT?<br>
                         2. Are you willing to work in offshore rigs for 14-day shifts?</p>
                         
-                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 mt-6">
-                            <p class="text-sm font-bold text-gray-800">Candidate Tip:</p>
-                            <p class="text-sm text-gray-600 mt-1">Be very thorough with your B.Tech final year project. 40% of my interview was based solely on my project thesis.</p>
+                        <div class="bg-gray-50 p-4 md:p-5 rounded-xl border border-gray-200 mt-6 shadow-inner">
+                            <p class="text-[10px] md:text-sm font-black text-gray-800 uppercase tracking-wide">Guidance Tip:</p>
+                            <p class="text-xs md:text-sm text-gray-600 mt-1">Be very thorough with your B.Tech final year project. 40% of my interview was based solely on my project thesis.</p>
                         </div>
                     </div>
                 `;
             } else if(type === 'barc') {
                 content = `
-                    <span class="bg-blue-100 text-blue-800 text-[10px] font-black px-2 py-1 rounded uppercase tracking-wider">Interview Archive</span>
-                    <h2 class="text-3xl font-black text-gray-900 mt-4 mb-2">BARC Scientific Officer - 2023</h2>
-                    <p class="text-gray-500 font-bold mb-6 border-b pb-4">Panel: 6 Scientists • Duration: 55 mins • Status: Waitlisted</p>
-                    <div class="space-y-4 text-gray-700 leading-relaxed">
-                        <p><strong class="text-gray-900">Experience:</strong><br>
+                    <span class="bg-blue-100 text-blue-800 text-[10px] font-black px-2 py-1 rounded uppercase tracking-wider">Counseling Archive</span>
+                    <h2 class="text-2xl md:text-3xl font-black text-gray-900 mt-4 mb-2">BARC Scientific Officer - 2023</h2>
+                    <p class="text-xs md:text-sm text-gray-500 font-bold mb-6 border-b pb-4">Panel: 6 Scientists • Duration: 55 mins • Status: Waitlisted</p>
+                    <div class="space-y-4 text-gray-700 leading-relaxed font-medium text-sm md:text-base">
+                        <p><strong class="text-gray-900 font-black">Experience:</strong><br>
                         The interview was extremely technical. They didn't ask a single HR question. They handed me a chalk and asked me to go to the blackboard immediately.</p>
                         
-                        <p><strong class="text-gray-900">Questions:</strong><br>
+                        <p><strong class="text-gray-900 font-black">Questions:</strong><br>
                         1. Write the Navier-Stokes equation. Cancel out terms for a steady, 1D, incompressible flow.<br>
                         2. Draw the T-S diagram for water. Show the critical point. What happens exactly at the critical point?<br>
                         3. Explain the concept of entropy without using mathematical formulas.</p>
@@ -317,42 +267,47 @@
                 `;
             }
             openContentModal(content);
-        }
+        };
 
-        function openBookingModal() {
+        window.openBookingModal = () => {
             const content = `
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                <div class="text-center mt-4">
+                    <div class="w-12 h-12 md:w-16 md:h-16 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                     </div>
-                    <h2 class="text-3xl font-black text-gray-900 mb-2">Schedule a Session</h2>
-                    <p class="text-gray-500 mb-8">Select a date and time to mock interview with an Ex-PSU panelist.</p>
+                    <h2 class="text-2xl md:text-3xl font-black text-gray-900 mb-2">Schedule Mentorship</h2>
+                    <p class="text-sm md:text-base text-gray-500 mb-6 font-medium">Select a date and target PSU. Fee: <strong class="text-gray-800">₹500</strong> per 45-minute session.</p>
                 </div>
                 
-                <form onsubmit="alert('Session booked! We will email you the meeting link.'); closeContentModal(); return false;" class="space-y-4">
+                <form onsubmit="alert('Redirecting to Payment Gateway (₹500)...'); closeContentModal(); return false;" class="space-y-4">
                     <div>
-                        <label class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2">Select Date</label>
-                        <input type="date" required class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-purple-500 font-bold text-gray-800">
+                        <label class="block text-[10px] md:text-xs font-black text-gray-500 uppercase tracking-widest mb-2">Select Date</label>
+                        <input type="date" required class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 md:p-4 focus:outline-none focus:ring-2 focus:ring-purple-500 font-bold text-gray-800">
                     </div>
                     <div>
-                        <label class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2">Target PSU</label>
-                        <select class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-purple-500 font-bold text-gray-800 cursor-pointer">
-                            <option>ONGC / IOCL / HPCL</option>
-                            <option>BARC / ISRO / DRDO</option>
-                            <option>General Mock</option>
+                        <label class="block text-[10px] md:text-xs font-black text-gray-500 uppercase tracking-widest mb-2">Counseling / Target Exam</label>
+                        <select class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 md:p-4 focus:outline-none focus:ring-2 focus:ring-purple-500 font-bold text-gray-800 cursor-pointer text-sm md:text-base">
+                            <option>ONGC / IOCL / HPCL Interview</option>
+                            <option>BARC / ISRO / DRDO Interview</option>
+                            <option>IIT M.Tech Counseling</option>
+                            <option>General Guidance & Profile Review</option>
                         </select>
                     </div>
-                    <button type="submit" class="w-full bg-purple-600 text-white font-black py-4 rounded-xl hover:bg-purple-700 transition shadow-md mt-4">Confirm Booking (Free)</button>
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 mt-4 flex justify-between items-center">
+                        <span class="font-bold text-gray-600 text-sm md:text-base">Total Payable</span>
+                        <span class="text-xl md:text-2xl font-black text-gray-900">₹500</span>
+                    </div>
+                    <button type="submit" class="w-full bg-purple-600 text-white font-black py-3 md:py-4 rounded-xl hover:bg-purple-700 transition shadow-lg hover:shadow-purple-200 mt-2 transform active:scale-95">Proceed to Pay ₹500</button>
                 </form>
             `;
             openContentModal(content);
-        }
+        };
     </script>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, initializeFirestore } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, getDocs, collection, initializeFirestore } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDENuRhO2xK9hZK43kFVHmbZR3rz6LHjAY",
@@ -366,7 +321,12 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = initializeFirestore(app, { experimentalForceLongPolling: true });
-        const authMenu = document.getElementById('auth-menu');
+        
+        // ----------------------------------------------------
+        // 1. AUTHENTICATION & NAVBAR (DUAL INJECTION)
+        // ----------------------------------------------------
+        const authMenuDesktop = document.getElementById('auth-menu-desktop');
+        const authMenuMobile = document.getElementById('auth-menu-mobile');
 
         onAuthStateChanged(auth, async (user) => {
             if (user) {
@@ -384,13 +344,13 @@
                 } catch(e) {}
 
                 let iconHTML = photoUrl 
-                    ? `<img src="${photoUrl}" class="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm">`
-                    : `<div class="w-10 h-10 bg-white rounded-full flex items-center justify-center font-black text-blue-700 shadow-sm">${initial}</div>`;
+                    ? `<img src="${photoUrl}" class="w-9 h-9 rounded-full object-cover border-2 border-white shadow-sm">`
+                    : `<div class="w-9 h-9 bg-white rounded-full flex items-center justify-center font-black text-blue-700 shadow-sm">${initial}</div>`;
 
-                authMenu.innerHTML = `
+                // Desktop View (Hover Dropdown)
+                if(authMenuDesktop) authMenuDesktop.innerHTML = `
                     <div class="relative group border-l pl-6 border-blue-400 list-none z-50">
                         <div class="cursor-pointer select-none">${iconHTML}</div>
-                        
                         <div class="absolute right-0 mt-0 w-40 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top pt-4">
                             <div class="bg-white rounded-xl shadow-xl border border-gray-100 p-2 flex flex-col gap-1">
                                 <a href="dashboard.html" class="w-full px-4 py-3 text-sm font-bold text-gray-700 hover:bg-gray-50 hover:text-blue-600 text-left rounded-lg transition flex items-center">
@@ -398,7 +358,7 @@
                                     Dashboard
                                 </a>
                                 <div class="border-t border-gray-100"></div>
-                                <button id="logout-btn" class="w-full px-4 py-3 text-sm font-bold text-red-600 hover:bg-red-50 hover:text-red-700 text-left rounded-lg transition flex items-center">
+                                <button onclick="triggerLogout()" class="w-full px-4 py-3 text-sm font-bold text-red-600 hover:bg-red-50 hover:text-red-700 text-left rounded-lg transition flex items-center">
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                                     Logout
                                 </button>
@@ -407,14 +367,121 @@
                     </div>
                 `;
 
-                document.getElementById('logout-btn').addEventListener('click', () => {
+                // Mobile View (Stacked Buttons)
+                if(authMenuMobile) authMenuMobile.innerHTML = `
+                    <div class="flex items-center gap-3 mb-4">
+                        ${iconHTML}
+                        <span class="font-bold text-white">My Account</span>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <a href="dashboard.html" class="w-full bg-blue-700 text-white font-bold py-3 rounded-xl text-center border border-blue-600 hover:bg-blue-600 transition">Go to Dashboard</a>
+                        <button onclick="triggerLogout()" class="w-full bg-red-500 text-white font-bold py-3 rounded-xl hover:bg-red-600 transition">Logout</button>
+                    </div>
+                `;
+
+                // Make logout accessible globally
+                window.triggerLogout = () => {
                     signOut(auth).then(() => { window.location.reload(); });
-                });
+                };
 
             } else {
-                authMenu.innerHTML = `<a href="login.html" class="bg-white text-blue-600 px-6 py-2 rounded-full font-bold hover:bg-blue-50 shadow-sm transition transform hover:scale-105">Login</a>`;
+                const loginBtn = `<a href="login.html" class="w-full inline-block text-center bg-white text-blue-600 px-6 py-3 rounded-full font-bold hover:bg-blue-50 shadow-sm transition">Login / Sign Up</a>`;
+                if(authMenuDesktop) authMenuDesktop.innerHTML = loginBtn;
+                if(authMenuMobile) authMenuMobile.innerHTML = loginBtn;
             }
         });
+
+        // ----------------------------------------------------
+        // 2. LIVE CUTOFF PREDICTOR (From Firebase)
+        // ----------------------------------------------------
+        let databaseCutoffs = [];
+
+        async function fetchCutoffs() {
+            try {
+                const snapshot = await getDocs(collection(db, "cutoffs"));
+                databaseCutoffs = [];
+                snapshot.forEach(doc => {
+                    databaseCutoffs.push(doc.data());
+                });
+                // Re-run prediction if user already typed a score before data loaded
+                if(document.getElementById('user-score').value) window.predictCutoffs();
+            } catch(e) { console.error("Failed to load cutoffs", e); }
+        }
+        fetchCutoffs(); 
+
+        // Define globally for the onclick attribute
+        window.predictCutoffs = () => {
+            const scoreInput = document.getElementById('user-score').value;
+            const category = document.getElementById('user-category').value;
+            const errorMsg = document.getElementById('predictor-error');
+            const resultsContainer = document.getElementById('results-container');
+            const resultsList = document.getElementById('results-list');
+            const btn = document.getElementById('btn-predict');
+
+            if (!scoreInput || scoreInput < 0 || scoreInput > 1000) {
+                errorMsg.classList.remove('hidden');
+                resultsContainer.classList.add('hidden');
+                return;
+            }
+
+            errorMsg.classList.add('hidden');
+            const score = parseInt(scoreInput);
+
+            if (databaseCutoffs.length === 0) {
+                btn.innerText = "Loading Data...";
+                return;
+            }
+            
+            btn.innerText = "Analyzing...";
+            btn.classList.add('opacity-75', 'cursor-wait');
+
+            setTimeout(() => {
+                resultsList.innerHTML = "";
+                
+                const evaluatedDB = databaseCutoffs.map(item => {
+                    const reqCutoff = item.cutoffs[category] || 1000; 
+                    const difference = score - reqCutoff;
+                    let chance = "";
+                    let badgeClass = "";
+
+                    if (difference >= 0) {
+                        chance = "High Chance";
+                        badgeClass = "bg-green-100 text-green-700 border-green-200";
+                    } else if (difference >= -40) {
+                        chance = "Borderline";
+                        badgeClass = "bg-yellow-100 text-yellow-700 border-yellow-200";
+                    } else if (difference >= -100) {
+                        chance = "Low Chance";
+                        badgeClass = "bg-red-100 text-red-700 border-red-200";
+                    }
+
+                    return { ...item, difference, chance, badgeClass, reqCutoff };
+                }).filter(item => item.chance !== ""); 
+
+                evaluatedDB.sort((a, b) => b.difference - a.difference || b.reqCutoff - a.reqCutoff);
+
+                if (evaluatedDB.length === 0) {
+                    resultsList.innerHTML = `<div class="p-6 text-center text-gray-500 font-bold text-sm">Your score is below the historic cutoffs for the top institutions in our database. Consider exploring state-level universities.</div>`;
+                } else {
+                    evaluatedDB.forEach(item => {
+                        resultsList.innerHTML += `
+                            <div class="px-4 md:px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition border-b border-gray-100 last:border-0 gap-2">
+                                <div>
+                                    <p class="font-black text-gray-900 text-sm md:text-base">${item.inst}</p>
+                                    <p class="text-xs md:text-sm text-gray-600 font-medium">${item.spec}</p>
+                                    <p class="text-[10px] md:text-xs text-gray-400 mt-1 font-bold">Past Cutoff: ${item.reqCutoff}</p>
+                                </div>
+                                <span class="text-[9px] md:text-[10px] font-black uppercase tracking-widest px-2 py-1 md:px-3 md:py-1.5 rounded-lg border ${item.badgeClass} shrink-0">${item.chance}</span>
+                            </div>
+                        `;
+                    });
+                }
+
+                resultsContainer.classList.remove('hidden');
+                btn.innerText = "Predict Now";
+                btn.classList.remove('opacity-75', 'cursor-wait');
+            }, 600); 
+        };
     </script>
 </body>
 </html>
