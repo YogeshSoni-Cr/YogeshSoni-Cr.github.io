@@ -13,28 +13,28 @@
         <div class="absolute top-1/2 -right-32 w-[30rem] h-[30rem] bg-blue-50 rounded-full mix-blend-multiply filter blur-3xl"></div>
     </div>
 
-    <nav class="p-6 relative z-10">
+    <nav class="p-4 md:p-6 relative z-10">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-2 group">
-                <div class="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center font-black group-hover:bg-blue-700 transition">C</div>
-                <span class="text-xl font-black tracking-wider text-gray-900 group-hover:text-blue-600 transition">CORE RANKER</span>
+                <div class="w-7 h-7 md:w-8 md:h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center font-black group-hover:bg-blue-700 transition text-sm md:text-base">C</div>
+                <span class="text-lg md:text-xl font-black tracking-wider text-gray-900 group-hover:text-blue-600 transition">CORE RANKER</span>
             </a>
-            <a href="index.html" class="text-gray-500 hover:text-gray-900 font-bold text-sm transition flex items-center">
-                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                Back to Home
+            <a href="index.html" class="text-gray-500 hover:text-gray-900 font-bold text-xs md:text-sm transition flex items-center">
+                <svg class="w-4 h-4 mr-1 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back <span class="hidden sm:inline">&nbsp;to Home</span>
             </a>
         </div>
     </nav>
 
-    <div class="flex-1 flex items-center justify-center p-4 relative z-10 py-10">
-        <div class="bg-white p-10 rounded-3xl shadow-xl border border-gray-100 max-w-md w-full">
+    <div class="flex-1 flex items-center justify-center p-4 relative z-10 py-6 md:py-10">
+        <div class="bg-white p-6 sm:p-8 md:p-10 rounded-2xl md:rounded-3xl shadow-xl border border-gray-100 max-w-md w-full">
             
-            <div class="text-center mb-8">
-                <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-inner">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+            <div class="text-center mb-6 md:mb-8">
+                <div class="w-12 h-12 md:w-16 md:h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 shadow-inner">
+                    <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
                 </div>
-                <h1 class="text-3xl font-black text-gray-900">Create Account</h1>
-                <p class="text-gray-500 mt-2 font-medium">Join Core Ranker to start your preparation.</p>
+                <h1 class="text-2xl md:text-3xl font-black text-gray-900">Create Account</h1>
+                <p class="text-xs md:text-sm text-gray-500 mt-2 font-medium">Join Core Ranker to start your preparation.</p>
             </div>
 
             <div id="error-box" class="hidden mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
@@ -43,7 +43,7 @@
                         <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
                     </div>
                     <div class="ml-3">
-                        <p id="error-message" class="text-sm text-red-700 font-bold"></p>
+                        <p id="error-message" class="text-xs md:text-sm text-red-700 font-bold"></p>
                     </div>
                 </div>
             </div>
@@ -51,36 +51,36 @@
             <form id="signup-form" class="space-y-4">
                 
                 <div>
-                    <label for="name" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2">Full Name</label>
+                    <label for="name" class="block text-[10px] md:text-xs font-black text-gray-500 uppercase tracking-widest mb-1 md:mb-2">Full Name</label>
                     <input type="text" id="name" placeholder="Rahul Kumar" required 
-                        class="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition text-gray-800 font-medium">
+                        class="w-full px-4 md:px-5 py-3 md:py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition text-gray-800 font-medium text-sm md:text-base">
                 </div>
 
                 <div>
-                    <label for="email" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2">Email Address</label>
+                    <label for="email" class="block text-[10px] md:text-xs font-black text-gray-500 uppercase tracking-widest mb-1 md:mb-2">Email Address</label>
                     <input type="email" id="email" placeholder="student@example.com" required 
-                        class="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition text-gray-800 font-medium">
+                        class="w-full px-4 md:px-5 py-3 md:py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition text-gray-800 font-medium text-sm md:text-base">
                 </div>
 
                 <div>
-                    <label for="phone" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2">Mobile Number</label>
+                    <label for="phone" class="block text-[10px] md:text-xs font-black text-gray-500 uppercase tracking-widest mb-1 md:mb-2">Mobile Number</label>
                     <input type="tel" id="phone" placeholder="+91 xxxxx xxxxx" required 
-                        class="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition text-gray-800 font-medium">
+                        class="w-full px-4 md:px-5 py-3 md:py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition text-gray-800 font-medium text-sm md:text-base">
                 </div>
 
                 <div>
-                    <label for="password" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2">Create Password</label>
+                    <label for="password" class="block text-[10px] md:text-xs font-black text-gray-500 uppercase tracking-widest mb-1 md:mb-2">Create Password</label>
                     <input type="password" id="password" placeholder="••••••••" required 
-                        class="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition text-gray-800 font-medium tracking-widest">
+                        class="w-full px-4 md:px-5 py-3 md:py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition text-gray-800 font-medium tracking-widest text-sm md:text-base">
                 </div>
 
-                <button type="submit" id="submit-btn" class="w-full bg-blue-600 text-white font-bold py-4 px-4 rounded-xl hover:bg-blue-700 transition transform active:scale-95 shadow-lg hover:shadow-blue-200 mt-6">
+                <button type="submit" id="submit-btn" class="w-full bg-blue-600 text-white font-bold py-3 md:py-4 px-4 rounded-xl hover:bg-blue-700 transition transform active:scale-95 shadow-lg hover:shadow-blue-200 mt-4 md:mt-6 text-sm md:text-base">
                     Create Free Account
                 </button>
             </form>
 
-            <div class="text-center mt-8 pt-6 border-t border-gray-100">
-                <p class="text-gray-600 font-medium">Already have an account? <a href="login.html" class="text-blue-600 font-black hover:underline ml-1">Log in here</a></p>
+            <div class="text-center mt-6 md:mt-8 pt-5 md:pt-6 border-t border-gray-100">
+                <p class="text-xs md:text-sm text-gray-600 font-medium">Already have an account? <a href="login.html" class="text-blue-600 font-black hover:underline ml-1">Log in here</a></p>
             </div>
             
         </div>
