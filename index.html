@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Core Ranker | GATE & PSU Preparation</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#2563eb">
     <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -202,7 +203,6 @@
                     ? `<img src="${photoUrl}" class="w-9 h-9 rounded-full object-cover border-2 border-white shadow-sm">`
                     : `<div class="w-9 h-9 bg-white rounded-full flex items-center justify-center font-black text-blue-700 shadow-sm">${initial}</div>`;
 
-                // Desktop View (Hover Dropdown)
                 if(authMenuDesktop) {
                     authMenuDesktop.innerHTML = `
                         <div class="relative group border-l pl-6 border-blue-400 list-none z-50">
@@ -224,7 +224,6 @@
                     `;
                 }
 
-                // Mobile View (Stacked Buttons)
                 if(authMenuMobile) {
                     authMenuMobile.innerHTML = `
                         <div class="flex items-center gap-3 mb-4">
@@ -246,7 +245,6 @@
                 const loginBtn = `<a href="login.html" class="w-full inline-block text-center bg-white text-blue-600 px-6 py-2 rounded-full font-bold hover:bg-blue-50 shadow-sm transition">Login / Sign Up</a>`;
                 if(authMenuDesktop) authMenuDesktop.innerHTML = loginBtn;
                 
-                // Mobile gets a slightly larger button
                 const mobileLoginBtn = `<a href="login.html" class="w-full inline-block text-center bg-white text-blue-600 px-6 py-3 rounded-full font-bold hover:bg-blue-50 shadow-sm transition">Login / Sign Up</a>`;
                 if(authMenuMobile) authMenuMobile.innerHTML = mobileLoginBtn;
             }
@@ -258,9 +256,8 @@
         document.getElementById('mobile-menu-btn').addEventListener('click', () => {
             document.getElementById('mobile-menu').classList.toggle('hidden');
         });
-    </script>
 
-    <script>
+        // 🔥 REGISTER PWA SERVICE WORKER 🔥
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js')
