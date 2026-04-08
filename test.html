@@ -14,7 +14,7 @@
 <body class="bg-gray-100 font-sans h-screen flex flex-col overflow-hidden select-none">
 
     <header class="bg-slate-800 text-white flex justify-between items-center px-6 py-3 shadow-md z-10 shrink-0">
-        <div class="text-xl font-black tracking-wider text-blue-400">CORE RANKER <span class="text-white font-light text-sm ml-2" id="exam-title-display">Exam Simulator</span></div>
+        <div class="text-xl font-black tracking-wider text-blue-400">CORE RANKER <span class="text-white font-light text-sm ml-2" id="exam-title-display">| Loading Exam...</span></div>
         <div id="top-timer-container" class="hidden flex items-center gap-4">
             <div class="text-yellow-400 font-bold flex items-center bg-slate-900 px-4 py-1 rounded-full border border-slate-700">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -24,8 +24,9 @@
         </div>
     </header>
 
-    <div id="loading-state" class="flex-1 flex items-center justify-center">
-        <p class="text-xl font-bold text-blue-600 animate-pulse">Initializing Exam Environment...</p>
+    <div id="loading-state" class="flex-1 flex flex-col items-center justify-center">
+        <p class="text-xl font-bold text-blue-600 animate-pulse mb-4">Initializing Exam Environment...</p>
+        <p id="loading-error" class="text-red-500 font-bold hidden text-center"></p>
     </div>
 
     <div id="instructions-view" class="hidden flex-1 overflow-y-auto bg-white m-4 shadow-lg border border-gray-300">
@@ -68,7 +69,7 @@
             
             <div class="flex justify-between items-center p-3 border-b bg-gray-50 text-sm font-bold text-gray-700">
                 <div>Question Type: <span class="text-blue-600">MCQ</span></div>
-                <div>Marks for correct answer: <span class="text-green-600">1.00</span> | Negative: <span class="text-red-500">0.33</span></div>
+                <div id="q-marks-display">Marks for correct answer: <span class="text-green-600">--</span> | Negative: <span class="text-red-500">--</span></div>
             </div>
             <div class="flex justify-between items-center p-3 border-b text-lg font-black text-blue-900 shadow-sm">
                 <div id="q-no-display">Question No. : 1</div>
@@ -77,8 +78,7 @@
             <div class="flex-1 overflow-y-auto p-8">
                 <h2 id="q-text" class="text-xl font-bold text-gray-800 mb-8 whitespace-pre-wrap">Loading question...</h2>
                 <img id="question-image" src="" alt="Question Image" onerror="this.classList.add('hidden')" class="hidden max-w-full h-auto rounded-lg mb-8 border border-gray-200 shadow-sm">
-                <div id="options-container" class="space-y-4 max-w-3xl">
-                    </div>
+                <div id="options-container" class="space-y-4 max-w-3xl"></div>
             </div>
 
             <div class="bg-gray-100 border-t p-3 flex justify-between items-center shrink-0">
@@ -105,14 +105,13 @@
                 <div class="flex items-center"><div class="w-6 h-6 bg-green-500 text-white text-center leading-6 rounded palette-btn mr-2" id="count-ans">0</div> Answered</div>
                 <div class="flex items-center"><div class="w-6 h-6 bg-red-500 text-white text-center leading-6 rounded palette-btn mr-2" id="count-not-ans">0</div> Not Answered</div>
                 <div class="flex items-center"><div class="w-6 h-6 bg-gray-200 border border-gray-300 text-center leading-6 rounded mr-2" id="count-not-vis">0</div> Not Visited</div>
-                <div class="flex items-center"><div class="w-6 h-6 bg-purple-600 text-white text-center leading-6 rounded-full mr-2" id="count-mark">0</div> Marked for Review</div>
-                <div class="flex items-center col-span-2 mt-1"><div class="w-6 h-6 bg-purple-600 text-white text-center leading-6 rounded-full relative ans-marked mr-2" id="count-ans-mark">0</div> Answered & Marked for Review</div>
+                <div class="flex items-center"><div class="w-6 h-6 bg-purple-600 text-white text-center leading-6 rounded-full mr-2" id="count-mark">0</div> Marked</div>
+                <div class="flex items-center col-span-2 mt-1"><div class="w-6 h-6 bg-purple-600 text-white text-center leading-6 rounded-full relative ans-marked mr-2" id="count-ans-mark">0</div> Answered & Marked</div>
             </div>
 
             <div class="p-4 bg-blue-100 border-b border-blue-200 font-bold text-blue-900 text-sm">Question Palette</div>
             <div class="flex-1 overflow-y-auto p-4 bg-blue-50">
-                <div id="palette-grid" class="flex flex-wrap gap-2 justify-center">
-                    </div>
+                <div id="palette-grid" class="flex flex-wrap gap-2 justify-center"></div>
             </div>
 
             <div class="p-4 bg-white border-t shrink-0">
@@ -122,7 +121,6 @@
     </div>
 
     <div id="result-view" class="hidden flex-1 overflow-y-auto bg-gray-100 p-8">
-        
         <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl p-10 text-center border-t-8 border-blue-600 mb-8">
             <h2 class="text-4xl font-black text-gray-900">Exam Submitted</h2>
             <div class="my-10 grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -144,22 +142,20 @@
                 </div>
             </div>
             <div class="flex justify-center gap-4">
-                <button onclick="location.href='tests.html'" class="bg-slate-800 text-white px-8 py-3 rounded font-bold hover:bg-black transition">Back to Dashboard</button>
+                <button onclick="location.href='dashboard.html'" class="bg-blue-600 text-white px-8 py-3 rounded font-bold hover:bg-blue-700 transition">Go to Dashboard</button>
             </div>
         </div>
 
         <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
             <h3 class="text-2xl font-black text-gray-800 mb-6 border-b border-gray-200 pb-4">Detailed Review</h3>
-            <div id="review-container" class="space-y-6">
-                </div>
+            <div id="review-container" class="space-y-6"></div>
         </div>
-
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-        import { getFirestore, collection, getDocs, query, where, doc, getDoc, initializeFirestore } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, collection, addDoc, serverTimestamp, initializeFirestore } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
         const firebaseConfig = { 
             apiKey: "AIzaSyDENuRhO2xK9hZK43kFVHmbZR3rz6LHjAY",
@@ -167,8 +163,7 @@
             projectId: "core-ranker",
             storageBucket: "core-ranker.firebasestorage.app",
             messagingSenderId: "13358547173",
-            appId: "1:13358547173:web:fe232275125be8e884940c",
-            measurementId: "G-038M2NDM0T"
+            appId: "1:13358547173:web:fe232275125be8e884940c"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -178,44 +173,77 @@
         // EXAM STATE
         let questions = [];
         let currentIndex = 0;
-        // status map: 0:Not Visited, 1:Not Answered, 2:Answered, 3:Marked, 4:Answered & Marked
         let userState = []; 
-        let timeLeft = 3600; // Default 60 mins
+        let timeSpent = [];
+        let timeLeft = 3600; 
         let timerInterval;
-        let selectedSubject = "Mock Test";
+        
+        let testId = ""; // The dynamic Firebase document ID
+        let testTitle = "Exam Simulator"; // The readable name
+        
+        let globalUser = null;
+        let globalUserName = "Student";
+
+        
 
         // INIT & LOAD
         onAuthStateChanged(auth, async (user) => {
             if (user) {
+                globalUser = user;
                 const uDoc = await getDoc(doc(db, "users", user.uid));
-                if(uDoc.exists()) document.getElementById('student-name').innerText = uDoc.data().name;
+                if(uDoc.exists()) {
+                    globalUserName = uDoc.data().name || "Student";
+                    document.getElementById('student-name').innerText = globalUserName;
+                }
             } else {
-                window.location.href = "tests.html"; // Protect route
+                window.location.href = "tests.html"; // Kick out if not logged in
             }
 
+            // EXTRACT ID FROM URL ?id=....
             const urlParams = new URLSearchParams(window.location.search);
-            selectedSubject = urlParams.get('subject') || "Demo Exam";
-            document.getElementById('exam-title-display').innerText = `| ${selectedSubject}`;
+            testId = urlParams.get('id');
+
+            if (!testId) {
+                showError("No test ID provided in the URL.");
+                return;
+            }
 
             try {
-                const q = query(collection(db, "questions"), where("subject", "==", selectedSubject));
-                const snap = await getDocs(q);
-                questions = snap.docs.map(d => d.data());
+                // Fetch the actual test document using the ID
+                const testDoc = await getDoc(doc(db, "tests", testId));
+                
+                if (testDoc.exists()) {
+                    const testData = testDoc.data();
+                    questions = testData.questions || [];
+                    testTitle = testData.title || "Untitled Test";
+                    
+                    document.getElementById('exam-title-display').innerText = `| ${testTitle}`;
 
-                if (questions.length > 0) {
-                    // Initialize state array
-                    userState = questions.map(() => ({ answer: null, status: 0 }));
-                    
-                    // Set timer based on questions (e.g., 1 minute per question)
-                    timeLeft = questions.length * 60;
-                    
-                    document.getElementById('loading-state').classList.add('hidden');
-                    document.getElementById('instructions-view').classList.remove('hidden');
+                    if (questions.length > 0) {
+                        userState = questions.map(() => ({ answer: null, status: 0 }));
+                        timeSpent = questions.map(() => 0);
+                        timeLeft = (testData.durationMinutes || 60) * 60;
+                        
+                        document.getElementById('loading-state').classList.add('hidden');
+                        document.getElementById('instructions-view').classList.remove('hidden');
+                    } else {
+                        showError(`Test "${testTitle}" has no questions assigned to it yet.`);
+                    }
                 } else {
-                    document.getElementById('loading-state').innerHTML = `<p class="text-red-500 font-bold">No questions found for ${selectedSubject}. <a href="tests.html" class="underline text-blue-600">Go Back</a></p>`;
+                    showError("This test does not exist or has been deleted.");
                 }
-            } catch (err) { console.error(err); }
+            } catch (err) { 
+                console.error(err);
+                showError("Failed to connect to the database.");
+            }
         });
+
+        function showError(msg) {
+            document.getElementById('loading-state').querySelector('p').classList.add('hidden'); // Hide loading text
+            const errorP = document.getElementById('loading-error');
+            errorP.innerHTML = `${msg} <br><br> <a href="tests.html" class="underline text-blue-600 bg-white px-4 py-2 rounded shadow-sm border border-blue-200">Go Back to Catalog</a>`;
+            errorP.classList.remove('hidden');
+        }
 
         // INSTRUCTIONS LOGIC
         const chk = document.getElementById('agree-checkbox');
@@ -233,22 +261,13 @@
         });
 
         btnStart.addEventListener('click', () => {
-            // 1. Trigger Full Screen Mode
             const elem = document.documentElement;
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen().catch(err => console.log("Fullscreen denied:", err));
-            } else if (elem.webkitRequestFullscreen) { /* Safari */
-                elem.webkitRequestFullscreen();
-            } else if (elem.msRequestFullscreen) { /* IE11 */
-                elem.msRequestFullscreen();
-            }
+            if (elem.requestFullscreen) elem.requestFullscreen().catch(e => {});
 
-            // 2. Hide Instructions, Show Exam
             document.getElementById('instructions-view').classList.add('hidden');
             document.getElementById('exam-view').classList.remove('hidden');
             document.getElementById('top-timer-container').classList.remove('hidden');
             
-            // 3. Start Exam Logic
             if(userState[0].status === 0) userState[0].status = 1;
             renderQuestion();
             renderPalette();
@@ -259,8 +278,10 @@
         function renderQuestion() {
             const q = questions[currentIndex];
             document.getElementById('q-no-display').innerText = `Question No. : ${currentIndex + 1}`;
-            document.getElementById('q-text').innerText = q.questionText;
+            document.getElementById('q-text').innerText = q.text;
 
+            // Display Marks mapping for this specific question
+            document.getElementById('q-marks-display').innerHTML = `Marks for correct answer: <span class="text-green-600">${q.marks || 1}</span> | Negative: <span class="text-red-500">${q.negativeMarks || 0}</span>`;
 
             const optDiv = document.getElementById('options-container');
             optDiv.innerHTML = "";
@@ -274,23 +295,11 @@
                     </label>
                 `;
             });
-
-            // NEW: Show image if it exists, hide if it doesn't
-            // NEW: Smarter Image Logic
-            const imgElement = document.getElementById('question-image');
-            // Check if it exists AND is longer than 5 characters (like "http...")
-            if (q.imageUrl && q.imageUrl.trim().length > 5) {
-                imgElement.src = q.imageUrl;
-                imgElement.classList.remove('hidden');
-            } else {
-                imgElement.classList.add('hidden');
-                imgElement.src = "";
-            }
         }
 
         window.selectOpt = (idx) => { 
             userState[currentIndex].answer = idx;
-            renderQuestion(); // Re-render to show selection styling
+            renderQuestion(); 
         };
 
         // BUTTON ACTIONS
@@ -299,14 +308,14 @@
             const hasAns = state.answer !== null;
 
             if (type === 'save') {
-                state.status = hasAns ? 2 : 1; // Answered OR Not Answered
+                state.status = hasAns ? 2 : 1; 
                 moveToNext();
             } else if (type === 'mark') {
-                state.status = hasAns ? 4 : 3; // Ans&Marked OR Marked
+                state.status = hasAns ? 4 : 3; 
                 moveToNext();
             } else if (type === 'clear') {
                 state.answer = null;
-                renderQuestion(); // Re-render to uncheck radio
+                renderQuestion(); 
             } else if (type === 'prev') {
                 if (currentIndex > 0) {
                     if (state.status === 0) state.status = 1;
@@ -330,12 +339,9 @@
         }
 
         window.jumpToQuestion = (idx) => {
-            // Update current status if leaving a not visited
             if (userState[currentIndex].status === 0) userState[currentIndex].status = 1;
-            
             currentIndex = idx;
             if (userState[currentIndex].status === 0) userState[currentIndex].status = 1;
-            
             renderQuestion();
             renderPalette();
         };
@@ -347,19 +353,15 @@
 
             userState.forEach((st, idx) => {
                 counts[`s${st.status}`]++;
-                
                 let btnClass = "w-10 h-10 font-bold text-sm cursor-pointer shadow-sm transition transform hover:scale-105 ";
                 
-                // Color coding based on status
-                if (st.status === 0) btnClass += "bg-gray-200 text-gray-700 rounded border border-gray-300"; // Not Visited
-                if (st.status === 1) btnClass += "bg-red-500 text-white palette-btn"; // Not Answered
-                if (st.status === 2) btnClass += "bg-green-500 text-white palette-btn"; // Answered
-                if (st.status === 3) btnClass += "bg-purple-600 text-white rounded-full"; // Marked
-                if (st.status === 4) btnClass += "bg-purple-600 text-white rounded-full relative ans-marked"; // Ans & Marked
+                if (st.status === 0) btnClass += "bg-gray-200 text-gray-700 rounded border border-gray-300"; 
+                if (st.status === 1) btnClass += "bg-red-500 text-white palette-btn"; 
+                if (st.status === 2) btnClass += "bg-green-500 text-white palette-btn"; 
+                if (st.status === 3) btnClass += "bg-purple-600 text-white rounded-full"; 
+                if (st.status === 4) btnClass += "bg-purple-600 text-white rounded-full relative ans-marked"; 
 
-                // Highlight active question
                 const borderClass = (idx === currentIndex) ? "ring-2 ring-blue-500 ring-offset-2" : "";
-
                 grid.innerHTML += `<button onclick="jumpToQuestion(${idx})" class="${btnClass} flex items-center justify-center ${borderClass}">${idx + 1}</button>`;
             });
 
@@ -370,110 +372,66 @@
             document.getElementById('count-ans-mark').innerText = counts.s4;
         }
 
-        // EVALUATION
-        window.calculateResult = () => {
+        // EVALUATION, SAVE & REDIRECT
+        window.calculateResult = async () => {
             clearInterval(timerInterval);
-            let correct = 0, wrong = 0, unattempted = 0;
-            const reviewContainer = document.getElementById('review-container');
-            reviewContainer.innerHTML = "";
+            let correctCount = 0, wrongCount = 0;
+            let totalScore = 0;
 
             userState.forEach((st, i) => {
                 const q = questions[i];
                 const isCorrect = (st.status === 2 || st.status === 4) && parseInt(st.answer) === parseInt(q.correctIndex);
                 const isAttempted = st.status === 2 || st.status === 4;
 
-                if (isCorrect) correct++; 
-                else if (isAttempted) wrong++;
-                else unattempted++;
+                const qMarks = q.marks || 1;
+                const qNeg = q.negativeMarks || 0;
 
-                // Build the Review Card
-                let statusBadge = "";
-                let cardBorder = "";
-                let answerDisplay = "";
-
-                if (isCorrect) { 
-                    statusBadge = `<span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Correct (+1.00)</span>`;
-                    cardBorder = "border-green-300 bg-green-50/30";
-                    answerDisplay = `
-                        <div class="mt-4 bg-green-50 p-4 rounded-xl border border-green-200">
-                            <span class="text-green-700 uppercase text-[10px] font-black block mb-2 tracking-widest">Your Correct Answer</span>
-                            <div class="font-medium text-green-900">${q.options[st.answer]}</div>
-                        </div>`;
+                if (isCorrect) {
+                    correctCount++;
+                    totalScore += qMarks;
                 } else if (isAttempted) {
-                    statusBadge = `<span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Incorrect (-0.33)</span>`;
-                    cardBorder = "border-red-300 bg-red-50/30";
-                    answerDisplay = `
-                        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="bg-red-50 p-4 rounded-xl border border-red-200">
-                                <span class="text-red-700 uppercase text-[10px] font-black block mb-2 tracking-widest">Your Answer</span>
-                                <div class="font-medium text-red-900 line-through opacity-70">${q.options[st.answer]}</div>
-                            </div>
-                            <div class="bg-green-50 p-4 rounded-xl border border-green-200 shadow-sm ring-1 ring-green-400">
-                                <span class="text-green-700 uppercase text-[10px] font-black block mb-2 tracking-widest">Correct Answer</span>
-                                <div class="font-medium text-green-900 font-bold">${q.options[q.correctIndex]}</div>
-                            </div>
-                        </div>`;
-                } else {
-                    statusBadge = `<span class="bg-gray-200 text-gray-600 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Unattempted (0.00)</span>`;
-                    cardBorder = "border-gray-200 bg-white";
-                    answerDisplay = `
-                        <div class="mt-4 bg-gray-50 p-4 rounded-xl border border-gray-200">
-                            <span class="text-gray-500 uppercase text-[10px] font-black block mb-2 tracking-widest">Correct Answer</span>
-                            <div class="font-medium text-gray-800">${q.options[q.correctIndex]}</div>
-                        </div>`;
+                    wrongCount++;
+                    totalScore -= qNeg;
                 }
-
-                // Handle Image in Review
-                const imageHTML = (q.imageUrl && q.imageUrl.trim().length > 5) 
-                    ? `<img src="${q.imageUrl}" class="mt-4 max-w-sm rounded-lg border border-gray-200 shadow-sm" onerror="this.style.display='none'">` 
-                    : "";
-
-                // Handle Explanation
-                const explanationHTML = (q.explanation && q.explanation.trim() !== "")
-                    ? `<div class="mt-6 bg-blue-50/50 p-5 rounded-xl border border-blue-100">
-                           <span class="text-blue-800 font-black text-sm block mb-2">Detailed Explanation:</span>
-                           <p class="text-gray-700 text-sm leading-relaxed">${q.explanation}</p>
-                       </div>`
-                    : "";
-
-                reviewContainer.innerHTML += `
-                    <div class="p-6 rounded-2xl border-2 ${cardBorder} shadow-sm transition hover:shadow-md">
-                        <div class="flex justify-between items-start mb-4">
-                            <h4 class="font-bold text-gray-900 text-lg flex-1 mr-4">Q${i + 1}: ${q.questionText}</h4>
-                            ${statusBadge}
-                        </div>
-                        ${imageHTML}
-                        ${answerDisplay}
-                        ${explanationHTML}
-                    </div>
-                `;
             });
 
-            // Calculate final score
-            const totalScore = (correct * 1) - (wrong * 0.33); 
-
-            // Hide exam, show results
+            // Show loading on screen instead of results
             document.getElementById('exam-view').classList.add('hidden');
             document.getElementById('top-timer-container').classList.add('hidden');
-            document.getElementById('result-view').classList.remove('hidden');
+            document.getElementById('loading-state').classList.remove('hidden');
+            document.getElementById('loading-state').innerHTML = `<p class="text-2xl font-black text-blue-600 animate-pulse mb-4">Saving Test & Generating Report...</p>`;
             
-            // Exit Fullscreen
-            if (document.exitFullscreen) {
-                document.exitFullscreen().catch(err => console.log(err));
-            } else if (document.webkitExitFullscreen) { /* Safari */
-                document.webkitExitFullscreen();
-            } else if (document.msExitFullscreen) { /* IE11 */
-                document.msExitFullscreen();
+            if (document.exitFullscreen) document.exitFullscreen().catch(e => {});
+
+            // SAVE TO FIREBASE
+            if (globalUser) {
+                try {
+                    const resultRef = await addDoc(collection(db, "test_results"), {
+                        userId: globalUser.uid,
+                        userName: globalUserName,
+                        testId: testId,
+                        testName: testTitle,
+                        score: parseFloat(Math.max(0, totalScore).toFixed(2)),
+                        totalQuestions: questions.length,
+                        correct: correctCount,
+                        wrong: wrongCount,
+                        accuracy: Math.round((correctCount / (correctCount + wrongCount)) * 100) || 0,
+                        userState: userState, // Save exactly what they clicked
+                        timeSpent: timeSpent, // Save time spent per question
+                        timestamp: serverTimestamp()
+                    });
+
+                    // Redirect to the new Analytics page!
+                    window.location.href = `analytics.html?id=${resultRef.id}`;
+
+                } catch(e) {
+                    console.error(e);
+                    alert("Error saving test! Please check your internet connection.");
+                }
+            } else {
+                alert("You must be logged in to save results.");
+                window.location.href = "tests.html";
             }
-            
-            // Update UI Scoreboard
-            document.getElementById('res-score').innerText = totalScore.toFixed(2);
-            document.getElementById('res-correct').innerText = correct;
-            document.getElementById('res-wrong').innerText = wrong;
-            document.getElementById('res-unattempted').innerText = unattempted;
-            
-            // Smooth scroll to top of results
-            document.getElementById('result-view').scrollTo(0, 0);
         };
 
         function startTimer() {
@@ -484,9 +442,12 @@
                 const s = Math.max(0, timeLeft) % 60;
                 timerEl.innerText = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
             };
-
             timerInterval = setInterval(() => {
                 timeLeft--;
+                // Track time spent on CURRENT question
+                if (!timeSpent[currentIndex]) timeSpent[currentIndex] = 0;
+                timeSpent[currentIndex]++;
+
                 updateTimerDisplay();
                 if (timeLeft <= 0) { clearInterval(timerInterval); calculateResult(); }
             }, 1000);

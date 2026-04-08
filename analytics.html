@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Analytics | Core Ranker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans selection:bg-blue-200 selection:text-blue-900">
+
+    <nav class="bg-blue-600 text-white shadow-md relative z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html"><h1 class="text-2xl font-black tracking-wider">CORE RANKER</h1></a>
+            <div class="flex items-center gap-4">
+                <a href="dashboard.html" class="font-bold hover:text-blue-200 transition bg-blue-700 px-4 py-2 rounded-lg text-sm shadow-inner border border-blue-500">&larr; Back to Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <div id="loading-state" class="min-h-[80vh] flex flex-col items-center justify-center">
+        <div class="w-16 h-16 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mb-4"></div>
+        <p class="text-xl font-bold text-blue-600 animate-pulse">Calculating Global Rank & Analytics...</p>
+    </div>
+
+    <div id="analytics-view" class="hidden pb-16">
+        <header class="bg-slate-900 text-white py-12 border-b-4 border-blue-500">
+            <div class="max-w-6xl mx-auto px-4">
+                <span class="bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full mb-3 inline-block shadow-sm">Detailed Performance Report</span>
+                <h2 id="test-title" class="text-3xl md:text-5xl font-black tracking-tight mb-2">Test Title</h2>
+                <p id="test-meta" class="text-gray-400 font-medium">Attempted on ...</p>
+            </div>
+        </header>
+
+        <main class="max-w-6xl mx-auto px-4 -mt-8 relative z-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 text-center">
+                    <p class="text-gray-400 text-[10px] md:text-xs font-black uppercase tracking-widest mb-1">Total Score</p>
+                    <p id="stat-score" class="text-3xl md:text-4xl font-black text-blue-600">0</p>
+                    <p class="text-[9px] md:text-[10px] text-gray-400 mt-1 font-bold">Out of <span id="stat-max-marks">...</span></p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 text-center">
+                    <p class="text-gray-400 text-[10px] md:text-xs font-black uppercase tracking-widest mb-1">Accuracy</p>
+                    <p id="stat-acc" class="text-3xl md:text-4xl font-black text-emerald-500">0%</p>
+                    <p class="text-[9px] md:text-[10px] text-gray-400 mt-1 font-bold">Correct / Attempted</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 text-center">
+                    <p class="text-gray-400 text-[10px] md:text-xs font-black uppercase tracking-widest mb-1">Percentile</p>
+                    <p id="stat-percentile" class="text-3xl md:text-4xl font-black text-purple-600">0.0</p>
+                    <p class="text-[9px] md:text-[10px] text-gray-400 mt-1 font-bold">Global Standing</p>
+                </div>
+                <div onclick="openLeaderboard()" class="bg-white p-6 rounded-2xl shadow-lg border-2 border-yellow-100 text-center cursor-pointer hover:border-yellow-400 hover:shadow-xl hover:-translate-y-1 transition transform group relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 w-16 h-16 bg-yellow-50 rounded-full group-hover:scale-150 transition duration-500"></div>
+                    <p class="text-yellow-600 text-[10px] md:text-xs font-black uppercase tracking-widest mb-1 relative z-10 flex justify-center items-center">
+                        All India Rank <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                    </p>
+                    <p id="stat-rank" class="text-3xl md:text-4xl font-black text-yellow-500 relative z-10">0</p>
+                    <p class="text-[9px] md:text-[10px] text-gray-500 mt-1 font-bold relative z-10">Out of <span id="total-students" class="text-gray-800">...</span> Students</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                <div class="lg:col-span-1 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <h3 class="font-black text-gray-800 mb-4 border-b pb-2 text-sm uppercase tracking-widest">Attempt Breakdown</h3>
+                    <div class="relative h-56 w-full flex justify-center"><canvas id="accuracyChart"></canvas></div>
+                </div>
+                <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="flex justify-between items-center mb-4 border-b pb-2">
+                        <h3 class="font-black text-gray-800 text-sm uppercase tracking-widest">Time Spent per Question</h3>
+                        <span class="text-[10px] font-bold text-gray-500 bg-gray-100 px-2 py-1 rounded">You vs. Topper</span>
+                    </div>
+                    <div class="relative h-56 w-full"><canvas id="timeChart"></canvas></div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 md:p-8">
+                <h3 class="text-xl md:text-2xl font-black text-gray-800 mb-6 border-b border-gray-200 pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                    Detailed Question Review
+                    <span class="text-[10px] md:text-xs font-bold text-gray-500 bg-gray-100 px-3 py-1 rounded-lg border border-gray-200 shadow-inner">Review, Bookmark, and Ask Doubts!</span>
+                </h3>
+                <div id="review-container" class="space-y-6"></div>
+            </div>
+        </main>
+    </div>
+
+    <div id="leaderboard-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full p-6 md:p-8 relative flex flex-col max-h-[90vh] overflow-hidden">
+            <button onclick="closeLeaderboard()" class="absolute top-4 right-4 md:top-6 md:right-6 text-gray-400 hover:text-gray-800 bg-gray-50 p-2 rounded-full transition z-20 border shadow-sm">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="text-center mb-6">
+                <h3 class="text-3xl font-black text-gray-900 tracking-tight">🏆 Global Leaderboard</h3>
+                <p class="text-sm font-bold text-gray-500 mt-1">Top 100 Performers for <span id="lb-test-name" class="text-blue-600">This Test</span></p>
+            </div>
+            <div class="overflow-y-auto flex-1 border border-gray-200 rounded-xl shadow-inner bg-gray-50">
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-white text-slate-500 text-[10px] md:text-xs uppercase sticky top-0 shadow-sm z-10 border-b border-gray-200">
+                        <tr><th class="p-4 font-black">Rank</th><th class="p-4 font-black">Student Name</th><th class="p-4 font-black text-center">Score</th><th class="p-4 font-black text-right hidden sm:table-cell">Accuracy</th></tr>
+                    </thead>
+                    <tbody id="leaderboard-body" class="text-sm divide-y divide-gray-100 bg-white"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="doubt-modal" class="fixed inset-0 bg-black/60 z-[60] hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 relative">
+            <button onclick="closeDoubtModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="text-center">
+                <div class="bg-blue-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-600">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h3 class="text-2xl font-black text-gray-900">Ask a Doubt</h3>
+                <p class="text-gray-500 mt-2 text-sm">Our experts will review your doubt and reply within 24 hours.</p>
+            </div>
+            <input type="hidden" id="modal-doubt-qindex">
+            <textarea id="modal-doubt-input" rows="4" placeholder="Explain what part of the solution or question is unclear..." class="w-full mt-6 p-4 bg-gray-50 border border-gray-200 rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"></textarea>
+            <button id="modal-doubt-submit-btn" onclick="submitDoubtFromModal()" class="w-full mt-4 py-4 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 shadow-md transition">Submit Doubt</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, getDocs, setDoc, addDoc, collection, query, where, initializeFirestore } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+
+        const firebaseConfig = { 
+            apiKey: "AIzaSyDENuRhO2xK9hZK43kFVHmbZR3rz6LHjAY",
+            authDomain: "core-ranker.firebaseapp.com",
+            projectId: "core-ranker",
+            storageBucket: "core-ranker.firebasestorage.app",
+            messagingSenderId: "13358547173",
+            appId: "1:13358547173:web:fe232275125be8e884940c"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = initializeFirestore(app, { experimentalForceLongPolling: true });
+
+        let globalUser = null;
+        let testData = null;
+        let resultData = null;
+        window.leaderboardData = []; 
+        window.userDoubts = {}; // Store doubts mapped by Question Index
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const resultId = urlParams.get('id');
+
+        if (!resultId) { alert("No result found."); window.location.href = "dashboard.html"; }
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                globalUser = user;
+                window.fetchAnalytics(); // Make it global so submitDoubt can call it
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        window.fetchAnalytics = async () => {
+            try {
+                // 1. Fetch User's Result
+                const resDoc = await getDoc(doc(db, "test_results", resultId));
+                if (!resDoc.exists()) return alert("Result not found.");
+                resultData = resDoc.data();
+
+                // 2. Fetch Original Test
+                const tDoc = await getDoc(doc(db, "tests", resultData.testId));
+                if (!tDoc.exists()) return alert("Original test data lost.");
+                testData = tDoc.data();
+
+                // 3. Fetch User's Doubts for this specific test
+                const dQuery = query(collection(db, "doubts"), where("userId", "==", globalUser.uid), where("testId", "==", resultData.testId));
+                const dSnap = await getDocs(dQuery);
+                window.userDoubts = {};
+                dSnap.forEach(d => { window.userDoubts[d.data().qIndex] = { id: d.id, ...d.data() }; });
+
+                // 4. FETCH GLOBAL LEADERBOARD & TOPPER TIME
+                const lbQuery = query(collection(db, "test_results"), where("testId", "==", resultData.testId));
+                const lbSnapshot = await getDocs(lbQuery);
+                let allResults = [];
+                lbSnapshot.forEach(d => { allResults.push({ id: d.id, ...d.data() }); });
+
+                allResults.sort((a, b) => {
+                    if (b.score !== a.score) return b.score - a.score;
+                    return (a.timestamp?.seconds || 0) - (b.timestamp?.seconds || 0);
+                });
+
+                let uniqueUsersMap = new Map();
+                allResults.forEach(res => { if(!uniqueUsersMap.has(res.userId)) uniqueUsersMap.set(res.userId, res); });
+                window.leaderboardData = Array.from(uniqueUsersMap.values());
+
+                let myRank = window.leaderboardData.findIndex(r => r.userId === globalUser.uid) + 1;
+                if(myRank === 0) myRank = allResults.findIndex(r => r.id === resultId) + 1;
+                let totalCandidates = window.leaderboardData.length;
+                let myPercentile = totalCandidates > 1 ? (((totalCandidates - myRank) / totalCandidates) * 100).toFixed(2) : 100.00;
+
+                let topperTimeSpent = window.leaderboardData.length > 0 && window.leaderboardData[0].timeSpent ? window.leaderboardData[0].timeSpent : Array(testData.questions.length).fill(0);
+
+                renderDashboard(myRank, myPercentile, totalCandidates, topperTimeSpent);
+
+            } catch (e) {
+                console.error(e); alert("Error loading analytics.");
+            }
+        };
+
+        function renderDashboard(myRank, myPercentile, totalCandidates, topperTimeSpent) {
+            document.getElementById('loading-state').classList.add('hidden');
+            document.getElementById('analytics-view').classList.remove('hidden');
+
+            document.getElementById('test-title').innerText = resultData.testName;
+            document.getElementById('lb-test-name').innerText = resultData.testName;
+            document.getElementById('stat-score').innerText = resultData.score;
+            document.getElementById('stat-max-marks').innerText = testData.totalMarks || "N/A";
+            document.getElementById('stat-acc').innerText = resultData.accuracy + "%";
+            document.getElementById('stat-rank').innerText = myRank;
+            document.getElementById('stat-percentile').innerText = myPercentile;
+            document.getElementById('total-students').innerText = totalCandidates;
+
+            const dateObj = resultData.timestamp ? new Date(resultData.timestamp.seconds * 1000) : new Date();
+            document.getElementById('test-meta').innerText = `Attempted on ${dateObj.toLocaleDateString()} at ${dateObj.toLocaleTimeString()}`;
+
+            // Charts
+            const ctxDonut = document.getElementById('accuracyChart').getContext('2d');
+            if(window.donutChart) window.donutChart.destroy();
+            window.donutChart = new Chart(ctxDonut, {
+                type: 'doughnut',
+                data: { labels: ['Correct', 'Incorrect', 'Unattempted'], datasets: [{ data: [resultData.correct, resultData.wrong, resultData.totalQuestions - resultData.correct - resultData.wrong], backgroundColor: ['#10b981', '#ef4444', '#e5e7eb'], borderWidth: 0 }] },
+                options: { cutout: '75%', plugins: { legend: { position: 'bottom' } }, responsive: true, maintainAspectRatio: false }
+            });
+
+            const myTimeArr = resultData.timeSpent || Array(resultData.totalQuestions).fill(0);
+            const ctxBar = document.getElementById('timeChart').getContext('2d');
+            if(window.barChart) window.barChart.destroy();
+            window.barChart = new Chart(ctxBar, {
+                type: 'bar',
+                data: { labels: myTimeArr.map((_, i) => `Q${i+1}`), datasets: [{ label: 'Your Time (s)', data: myTimeArr, backgroundColor: '#3b82f6', borderRadius: 4 }, { label: 'Topper Time (s)', data: topperTimeSpent, backgroundColor: '#10b981', borderRadius: 4 }] },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, grid: { display: false } }, x: { grid: { display: false } } }, plugins: { legend: { position: 'top' } } }
+            });
+
+            // Render Questions Review
+            const reviewContainer = document.getElementById('review-container');
+            reviewContainer.innerHTML = "";
+
+            testData.questions.forEach((q, i) => {
+                const userState = resultData.userState[i] || { answer: null, status: 0 };
+                const isCorrect = (userState.status === 2 || userState.status === 4) && parseInt(userState.answer) === parseInt(q.correctIndex);
+                const isAttempted = userState.status === 2 || userState.status === 4;
+                const timeTaken = myTimeArr[i] || 0;
+                const topTimeTaken = topperTimeSpent[i] || 0;
+
+                let badge = ""; let border = ""; let ansBlock = "";
+
+                if (isCorrect) {
+                    badge = `<span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold uppercase shadow-sm">Correct (+${q.marks})</span>`;
+                    border = "border-green-300 bg-green-50/30";
+                    ansBlock = `<div class="mt-4 bg-green-50 p-4 rounded-xl border border-green-200 text-green-900 font-medium"><span class="text-green-700 text-[10px] font-black uppercase tracking-widest block mb-1">Your Answer</span>${q.options[userState.answer]}</div>`;
+                } else if (isAttempted) {
+                    badge = `<span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold uppercase shadow-sm">Incorrect (-${q.negativeMarks})</span>`;
+                    border = "border-red-300 bg-red-50/30";
+                    ansBlock = `
+                        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-red-50 p-4 rounded-xl border border-red-200 text-red-900 font-medium line-through opacity-80"><span class="text-red-700 text-[10px] font-black uppercase block mb-1">Your Answer</span>${q.options[userState.answer]}</div>
+                            <div class="bg-green-50 p-4 rounded-xl border border-green-200 text-green-900 font-bold shadow-sm ring-1 ring-green-400"><span class="text-green-700 text-[10px] font-black uppercase block mb-1">Correct Answer</span>${q.options[q.correctIndex]}</div>
+                        </div>`;
+                } else {
+                    badge = `<span class="bg-gray-200 text-gray-600 px-3 py-1 rounded-full text-xs font-bold uppercase shadow-sm">Unattempted (0.00)</span>`;
+                    border = "border-gray-200 bg-white";
+                    ansBlock = `<div class="mt-4 bg-gray-50 p-4 rounded-xl border border-gray-200 text-gray-800 font-medium"><span class="text-gray-500 text-[10px] font-black uppercase block mb-1">Correct Answer</span>${q.options[q.correctIndex]}</div>`;
+                }
+
+                const qHtmlContent = q.htmlText ? `<div class="mb-2 whitespace-pre-wrap">${q.htmlText}</div>` : `<h4 class="font-bold text-gray-900 text-lg mb-2 whitespace-pre-wrap">${q.text}</h4>`;
+                const imgHtml = q.image && q.image.length > 5 ? `<img src="${q.image}" class="my-4 rounded-lg border border-gray-200 max-w-full shadow-sm">` : "";
+
+                // DOUBT RESOLUTION SECTION FOR EACH QUESTION
+                let doubtBlock = "";
+                if (window.userDoubts[i]) {
+                    const dbt = window.userDoubts[i];
+                    if (dbt.status === "resolved" || dbt.replyText) {
+                        doubtBlock = `
+                            <div class="mt-6 bg-emerald-50 border border-emerald-200 rounded-xl p-4 shadow-sm">
+                                <p class="text-emerald-800 text-xs font-black uppercase tracking-widest mb-2 flex items-center"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Doubt Resolved</p>
+                                <p class="text-sm text-gray-600 font-medium mb-3 italic">" ${dbt.doubtText} "</p>
+                                <div class="bg-white p-3 rounded-lg border border-emerald-100 text-emerald-900 text-sm font-medium"><span class="block text-[10px] text-emerald-600 font-black uppercase mb-1">Expert Reply:</span>${dbt.replyText}</div>
+                            </div>`;
+                    } else {
+                        doubtBlock = `
+                            <div class="mt-6 bg-orange-50 border border-orange-200 rounded-xl p-4 shadow-sm">
+                                <p class="text-orange-800 text-xs font-black uppercase tracking-widest mb-1 flex items-center"><svg class="w-4 h-4 mr-1 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Doubt Pending</p>
+                                <p class="text-sm text-orange-900 font-medium">" ${dbt.doubtText} "</p>
+                                <p class="text-xs text-orange-600 mt-2 font-bold">Our experts are reviewing your question and will reply soon.</p>
+                            </div>`;
+                    }
+                } else {
+                    doubtBlock = `
+                        <div class="mt-4 pt-4 border-t border-gray-100">
+                            <button onclick="openDoubtModal(${i})" class="text-blue-600 hover:text-blue-800 text-xs font-bold transition flex items-center">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Ask a Doubt about this question
+                            </button>
+                        </div>`;
+                }
+                reviewContainer.innerHTML += `
+                    <div class="p-5 md:p-6 rounded-2xl border-2 ${border} shadow-sm relative group transition hover:shadow-md">
+                        <button onclick="bookmarkQuestion(${i})" class="absolute top-4 right-4 bg-white border border-gray-200 text-gray-400 hover:text-blue-600 hover:border-blue-400 w-10 h-10 flex items-center justify-center rounded-full transition shadow-sm" title="Save for Revision"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg></button>
+                        <div class="flex justify-between items-start mb-2 pr-12"><span class="font-black text-gray-400 mr-2 mt-1 shrink-0">Q${i + 1}.</span><div class="flex-1 q-content-rich overflow-hidden">${qHtmlContent}</div></div>
+                        <div class="flex items-center gap-3 mb-4 ml-6 flex-wrap">
+                            ${badge}
+                            <span class="text-[10px] md:text-xs font-bold text-blue-600 flex items-center bg-blue-50 px-2 py-1 rounded-full border border-blue-200 shadow-sm"><svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> You: ${timeTaken}s</span>
+                            <span class="text-[10px] md:text-xs font-bold text-green-700 flex items-center bg-green-50 px-2 py-1 rounded-full border border-green-200 shadow-sm"><svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg> Topper: ${topTimeTaken}s</span>
+                        </div>
+                        <div class="ml-6">${imgHtml}${ansBlock}${doubtBlock}</div>
+                    </div>
+                `;
+            });
+        }
+
+        // Bookmark & Doubt Actions
+        window.bookmarkQuestion = async (qIndex) => {
+            const q = testData.questions[qIndex];
+            const bookmarkId = `${resultData.testId}_Q${qIndex}`;
+            try {
+                await setDoc(doc(db, "users", globalUser.uid, "bookmarks", bookmarkId), {
+                    testName: resultData.testName, questionText: q.text || "Rich Text Question", options: q.options, correctIndex: q.correctIndex, image: q.image || null, savedAt: Date.now()
+                });
+                alert("✅ Question saved to your Revision Dashboard!");
+            } catch (e) { alert("Error saving bookmark."); }
+        };
+
+        window.openDoubtModal = (i) => {
+            document.getElementById('modal-doubt-qindex').value = i;
+            document.getElementById('modal-doubt-input').value = "";
+            document.getElementById('doubt-modal').classList.remove('hidden');
+            document.getElementById('doubt-modal').classList.add('flex');
+        };
+
+        window.closeDoubtModal = () => {
+            document.getElementById('doubt-modal').classList.add('hidden');
+            document.getElementById('doubt-modal').classList.remove('flex');
+        };
+
+        window.submitDoubtFromModal = async () => {
+            const qIndex = document.getElementById('modal-doubt-qindex').value;
+            const textInput = document.getElementById('modal-doubt-input').value.trim();
+            if(!textInput) return alert("Please type your doubt before submitting.");
+            const btn = document.getElementById('modal-doubt-submit-btn');
+            btn.disabled = true; btn.innerText = "Submitting...";
+
+            try {
+                await addDoc(collection(db, "doubts"), {
+                    userId: globalUser.uid,
+                    userName: resultData.userName || "Student",
+                    testId: resultData.testId,
+                    testName: resultData.testName,
+                    qIndex: qIndex,
+                    questionText: testData.questions[qIndex].text || "Rich text question",
+                    doubtText: textInput,
+                    status: "pending",
+                    replyText: "",
+                    timestamp: Date.now()
+                });
+                alert("✅ Doubt submitted! Our experts will reply shortly.");
+                closeDoubtModal();
+                window.fetchAnalytics(); // Reload to show Pending state
+            } catch(e) {
+                console.error(e); alert("Error submitting doubt.");
+            }
+            btn.disabled = false; btn.innerText = "Submit Doubt";
+        };
+
+        window.openLeaderboard = () => { document.getElementById('leaderboard-modal').classList.remove('hidden'); };
+        window.closeLeaderboard = () => { document.getElementById('leaderboard-modal').classList.add('hidden'); };
+    </script>
+</body>
+</html>

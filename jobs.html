@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSU Job Board | Core Ranker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans selection:bg-emerald-200 selection:text-emerald-900">
+
+    <nav class="bg-blue-600 text-white shadow-md relative z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex justify-start">
+                <a href="index.html"><h1 class="text-2xl font-black tracking-wider">CORE RANKER</h1></a>
+            </div>
+
+            <ul class="hidden md:flex space-x-8 items-center">
+                <li><a href="index.html" class="font-bold hover:text-blue-200 transition">Home</a></li>
+                <li class="relative group">
+                    <button class="flex items-center font-bold hover:text-blue-200 py-2 transition duration-200">
+                        Resources <svg class="w-4 h-4 ml-1 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute left-1/2 -translate-x-1/2 mt-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top pt-4">
+                        <div class="flex flex-col bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
+                            <a href="study.html" class="px-4 py-3 text-sm font-bold text-gray-700 hover:bg-blue-50 hover:text-blue-700 border-b border-gray-50 transition">Study Material</a>
+                            <a href="pyq.html" class="px-4 py-3 text-sm font-bold text-gray-700 hover:bg-blue-50 hover:text-blue-700 border-b border-gray-50 transition">PYQs</a>
+                            <a href="tests.html" class="px-4 py-3 text-sm font-bold text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition">Mock Tests</a>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="courses.html" class="flex items-center text-yellow-300 hover:text-yellow-100 font-bold transition">Courses <span class="ml-2 text-[10px] font-black bg-red-500 text-white px-2 py-0.5 rounded-full animate-pulse">NEW</span></a></li>
+                <li><a href="counseling.html" class="font-bold hover:text-blue-200 transition">Counseling</a></li>
+                <li><a href="jobs.html" class="font-bold border-b-2 border-white pb-1 transition">Job Board</a></li>
+            </ul>
+
+            <div class="hidden md:flex justify-end"><div id="auth-menu-desktop"></div></div>
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-btn" class="text-white hover:text-blue-200 focus:outline-none"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-blue-700 border-t border-blue-500 absolute w-full left-0 shadow-2xl">
+            <div class="flex flex-col">
+                <a href="index.html" class="px-6 py-4 font-bold border-b border-blue-600 hover:bg-blue-800">Home</a>
+                <a href="study.html" class="px-6 py-4 font-bold border-b border-blue-600 hover:bg-blue-800">Study Material</a>
+                <a href="tests.html" class="px-6 py-4 font-bold border-b border-blue-600 hover:bg-blue-800">Mock Tests</a>
+                <a href="counseling.html" class="px-6 py-4 font-bold border-b border-blue-600 hover:bg-blue-800">Counseling</a>
+                <a href="jobs.html" class="px-6 py-4 font-bold text-yellow-300 bg-blue-800 border-b border-blue-600">PSU Job Board</a>
+                <div id="auth-menu-mobile" class="px-6 py-5 bg-blue-800"></div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-white py-12 md:py-16 border-b border-gray-200 text-center relative overflow-hidden px-4">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-20 pointer-events-none">
+            <div class="absolute -top-24 -left-24 w-96 h-96 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl"></div>
+            <div class="absolute top-12 -right-24 w-96 h-96 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto relative z-10">
+            <span class="inline-block py-1 px-3 rounded-full bg-emerald-50 text-emerald-700 text-xs md:text-sm font-bold tracking-widest uppercase mb-4 border border-emerald-100">
+                Opportunities
+            </span>
+            <h2 class="text-3xl md:text-5xl font-black text-gray-900 mb-4 tracking-tight">PSU & Govt Job Board</h2>
+            <p class="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">Track active recruitment drives, expected notifications, and application deadlines for Core Engineering roles.</p>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto py-10 md:py-16 px-4 min-h-[50vh]">
+        <div class="bg-white p-5 md:p-8 rounded-2xl shadow-sm border border-gray-100">
+            <div class="flex justify-between items-center mb-6 border-b pb-4">
+                <h3 class="text-xl md:text-2xl font-black text-gray-900">Live Notifications</h3>
+            </div>
+            
+            <div id="jobs-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                <div class="p-8 text-center text-emerald-600 font-bold animate-pulse col-span-full">Loading Job Board...</div>
+            </div>
+        </div>
+    </main>
+
+    <div id="job-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-6 md:p-8 relative flex flex-col max-h-[90vh]">
+            <button onclick="closeJobModal()" class="absolute top-4 right-4 md:top-6 md:right-6 text-gray-400 hover:text-gray-800 bg-gray-50 p-2 rounded-full transition z-10">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div id="modal-body" class="overflow-y-auto pr-2 mt-4 md:mt-0">
+                </div>
+        </div>
+    </div>
+
+    <footer class="bg-gray-900 text-white py-12 text-center border-t-4 border-blue-500">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-2xl font-black tracking-widest text-blue-400 mb-6">CORE RANKER</h2>
+            <p class="text-xs text-gray-600">&copy; 2026 Core Ranker. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        window.closeJobModal = () => {
+            document.getElementById('job-modal').classList.add('hidden');
+        };
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+        import { getFirestore, collection, getDocs, doc, getDoc, initializeFirestore } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDENuRhO2xK9hZK43kFVHmbZR3rz6LHjAY",
+            authDomain: "core-ranker.firebaseapp.com",
+            projectId: "core-ranker",
+            storageBucket: "core-ranker.firebasestorage.app",
+            messagingSenderId: "13358547173",
+            appId: "1:13358547173:web:fe232275125be8e884940c"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = initializeFirestore(app, { experimentalForceLongPolling: true });
+        
+        // ----------------------------------------------------
+        // 1. AUTHENTICATION NAVBAR
+        // ----------------------------------------------------
+        const authMenuDesktop = document.getElementById('auth-menu-desktop');
+        const authMenuMobile = document.getElementById('auth-menu-mobile');
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                let initial = "S";
+                let photoUrl = null;
+                try {
+                    const userDoc = await getDoc(doc(db, "users", user.uid));
+                    if(userDoc.exists()) {
+                        initial = (userDoc.data().name || "S").charAt(0).toUpperCase();
+                        photoUrl = userDoc.data().photoURL || null;
+                    }
+                } catch(e) {}
+
+                let iconHTML = photoUrl ? `<img src="${photoUrl}" class="w-9 h-9 rounded-full object-cover border-2 border-white shadow-sm">` : `<div class="w-9 h-9 bg-white rounded-full flex items-center justify-center font-black text-blue-700 shadow-sm">${initial}</div>`;
+
+                if(authMenuDesktop) authMenuDesktop.innerHTML = `<div class="relative group border-l pl-6 border-blue-400 list-none z-50"><div class="cursor-pointer select-none">${iconHTML}</div><div class="absolute right-0 mt-0 w-40 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top pt-4"><div class="bg-white rounded-xl shadow-xl border border-gray-100 p-2 flex flex-col gap-1"><a href="dashboard.html" class="w-full px-4 py-3 text-sm font-bold text-gray-700 hover:bg-gray-50 hover:text-blue-600 text-left rounded-lg transition">Dashboard</a><div class="border-t border-gray-100"></div><button onclick="triggerLogout()" class="w-full px-4 py-3 text-sm font-bold text-red-600 hover:bg-red-50 hover:text-red-700 text-left rounded-lg transition">Logout</button></div></div></div>`;
+                if(authMenuMobile) authMenuMobile.innerHTML = `<div class="flex items-center gap-3 mb-4">${iconHTML}<span class="font-bold text-white">My Account</span></div><div class="flex flex-col gap-2"><a href="dashboard.html" class="w-full bg-blue-700 text-white font-bold py-3 rounded-xl text-center border border-blue-600 hover:bg-blue-600 transition">Dashboard</a><button onclick="triggerLogout()" class="w-full bg-red-500 text-white font-bold py-3 rounded-xl hover:bg-red-600 transition">Logout</button></div>`;
+                
+                window.triggerLogout = () => { signOut(auth).then(() => { window.location.reload(); }); };
+            } else {
+                const loginBtn = `<a href="login.html" class="w-full inline-block text-center bg-white text-blue-600 px-6 py-3 rounded-full font-bold hover:bg-blue-50 shadow-sm transition">Login / Sign Up</a>`;
+                if(authMenuDesktop) authMenuDesktop.innerHTML = loginBtn;
+                if(authMenuMobile) authMenuMobile.innerHTML = loginBtn;
+            }
+        });
+
+        // ----------------------------------------------------
+        // 2. LIVE PSU JOBS FETCH & MODAL LOGIC
+        // ----------------------------------------------------
+        const jobsListContainer = document.getElementById('jobs-list');
+        window.jobsData = {}; // Store jobs globally so modal can access them
+
+        async function fetchPSUJobs() {
+            try {
+                const snapshot = await getDocs(collection(db, "psu_jobs"));
+                let htmlContent = "";
+                let count = 0;
+
+                snapshot.forEach(doc => {
+                    count++;
+                    const data = doc.data();
+                    window.jobsData[doc.id] = data; // Save to global object
+                    
+                    let badgeClass = "bg-gray-100 text-gray-700"; 
+                    if (data.status === "Open") badgeClass = "bg-emerald-100 text-emerald-800 border border-emerald-200";
+                    if (data.status === "Soon") badgeClass = "bg-yellow-100 text-yellow-800 border border-yellow-200";
+                    if (data.status === "Closed") badgeClass = "bg-red-100 text-red-800 border border-red-200";
+
+                    htmlContent += `
+                        <a href="job-details.html?id=${doc.id}" class="p-5 border border-gray-200 rounded-2xl hover:shadow-lg hover:border-emerald-300 transition cursor-pointer bg-white group flex flex-col justify-between h-full relative overflow-hidden block">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <h4 class="font-black text-lg text-gray-900 group-hover:text-emerald-600 transition">${data.company}</h4>
+                                    <span class="${badgeClass} text-[10px] font-black px-2 py-1 rounded-lg uppercase shrink-0 shadow-sm">${data.status}</span>
+                                </div>
+                                <p class="font-bold text-gray-700 text-sm mb-2">${data.role}</p>
+                                <p class="text-xs text-gray-500 line-clamp-2 leading-relaxed">${data.details}</p>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-gray-50 flex items-center text-xs font-bold text-emerald-600 group-hover:text-emerald-800">
+                                View Details &rarr;
+                            </div>
+                        </div>
+                    `;
+                });
+
+                if(count === 0) htmlContent = `<div class="p-8 text-center text-gray-400 font-bold col-span-full">No active recruitments found right now.</div>`;
+                jobsListContainer.innerHTML = htmlContent;
+
+            } catch(e) {
+                console.error(e);
+                jobsListContainer.innerHTML = `<div class="p-8 text-center text-red-500 font-bold col-span-full">Error loading jobs.</div>`;
+            }
+        }
+        
+        fetchPSUJobs();
+
+        // The specific Modal logic for Jobs
+        window.openJobModal = (id) => {
+            const data = window.jobsData[id];
+            if(!data) return;
+
+            let badgeClass = "bg-gray-100 text-gray-700"; 
+            if (data.status === "Open") badgeClass = "bg-emerald-100 text-emerald-800";
+            if (data.status === "Soon") badgeClass = "bg-yellow-100 text-yellow-800";
+            if (data.status === "Closed") badgeClass = "bg-red-100 text-red-800";
+
+            let linkBtn = data.link ? `<a href="${data.link}" target="_blank" class="w-full block text-center bg-emerald-600 text-white font-black py-4 rounded-xl hover:bg-emerald-700 transition shadow-lg mt-6">Apply / Official Notification</a>` : "";
+
+            const content = `
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="${badgeClass} text-[10px] font-black px-2 py-1 rounded uppercase tracking-wider">${data.status}</span>
+                </div>
+                <h2 class="text-3xl font-black text-gray-900 mt-2">${data.company}</h2>
+                <h3 class="text-lg font-bold text-emerald-600 mb-6 border-b pb-4">${data.role}</h3>
+                
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                        <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Last Date</p>
+                        <p class="font-bold text-gray-800">${data.applicationDate || "To be announced"}</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                        <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Vacancies</p>
+                        <p class="font-bold text-gray-800">${data.vacancies || "Not Disclosed"}</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-gray-700 text-sm md:text-base leading-relaxed">
+                    <div class="bg-gray-50 p-5 rounded-2xl border border-gray-100"><strong class="text-gray-900 font-black block mb-2">Details:</strong><p class="whitespace-pre-line">${data.details || "No basic details provided."}</p></div>
+                    <div class="bg-gray-50 p-5 rounded-2xl border border-gray-100"><strong class="text-gray-900 font-black block mb-2">Additional Info:</strong><p class="whitespace-pre-line">${data.extraInfo || "No extra information provided."}</p></div>
+                </div>
+                
+                ${linkBtn}
+            `;
+            
+            document.getElementById('modal-body').innerHTML = content;
+            document.getElementById('job-modal').classList.remove('hidden');
+        };
+    </script>
+</body>
+</html>

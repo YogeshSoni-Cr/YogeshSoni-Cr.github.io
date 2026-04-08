@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details | Core Ranker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <style>
+        .blog-content-area h1 { font-size: 2.25rem; font-weight: 800; margin-bottom: 1rem; }
+        .blog-content-area h2 { font-size: 1.875rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+        .blog-content-area h3 { font-size: 1.5rem; font-weight: 700; margin-top: 1.25rem; margin-bottom: 0.5rem; }
+        .blog-content-area ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1rem; }
+        .blog-content-area ol { list-style-type: decimal; margin-left: 1.5rem; margin-bottom: 1rem; }
+        .blog-content-area p { margin-bottom: 1rem; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans selection:bg-emerald-200 selection:text-emerald-900">
+
+    <nav class="bg-blue-600 text-white shadow-md relative z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex justify-start">
+                <a href="index.html"><h1 class="text-2xl font-black tracking-wider">CORE RANKER</h1></a>
+            </div>
+
+            <ul class="hidden md:flex space-x-8 items-center">
+                <li><a href="index.html" class="font-bold hover:text-blue-200 transition">Home</a></li>
+                <li class="relative group">
+                    <button class="flex items-center font-bold hover:text-blue-200 py-2 transition duration-200">
+                        Resources <svg class="w-4 h-4 ml-1 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute left-1/2 -translate-x-1/2 mt-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top pt-4">
+                        <div class="flex flex-col bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
+                            <a href="study.html" class="px-4 py-3 text-sm font-bold text-gray-700 hover:bg-blue-50 hover:text-blue-700 border-b border-gray-50 transition">Study Material</a>
+                            <a href="pyq.html" class="px-4 py-3 text-sm font-bold text-gray-700 hover:bg-blue-50 hover:text-blue-700 border-b border-gray-50 transition">PYQs</a>
+                            <a href="tests.html" class="px-4 py-3 text-sm font-bold text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition">Mock Tests</a>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="courses.html" class="flex items-center text-yellow-300 hover:text-yellow-100 font-bold transition">Courses <span class="ml-2 text-[10px] font-black bg-red-500 text-white px-2 py-0.5 rounded-full animate-pulse">NEW</span></a></li>
+                <li><a href="counseling.html" class="font-bold hover:text-blue-200 transition">Counseling</a></li>
+                <li><a href="jobs.html" class="font-bold border-b-2 border-white pb-1 transition">Job Board</a></li>
+            </ul>
+
+            <div class="hidden md:flex justify-end"><div id="auth-menu-desktop"></div></div>
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-btn" class="text-white hover:text-blue-200 focus:outline-none"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-blue-700 border-t border-blue-500 absolute w-full left-0 shadow-2xl">
+            <div class="flex flex-col">
+                <a href="index.html" class="px-6 py-4 font-bold border-b border-blue-600 hover:bg-blue-800">Home</a>
+                <a href="study.html" class="px-6 py-4 font-bold border-b border-blue-600 hover:bg-blue-800">Study Material</a>
+                <a href="tests.html" class="px-6 py-4 font-bold border-b border-blue-600 hover:bg-blue-800">Mock Tests</a>
+                <a href="counseling.html" class="px-6 py-4 font-bold border-b border-blue-600 hover:bg-blue-800">Counseling</a>
+                <a href="jobs.html" class="px-6 py-4 font-bold text-yellow-300 bg-blue-800 border-b border-blue-600">PSU Job Board</a>
+                <div id="auth-menu-mobile" class="px-6 py-5 bg-blue-800"></div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-white py-10 md:py-16 border-b border-gray-200 relative overflow-hidden px-4">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-10 pointer-events-none">
+            <div class="absolute -top-24 -left-24 w-96 h-96 bg-emerald-300 rounded-full mix-blend-multiply filter blur-3xl"></div>
+        </div>
+        <div class="max-w-4xl mx-auto relative z-10">
+            <a href="jobs.html" class="inline-flex items-center text-sm font-bold text-emerald-600 hover:text-emerald-800 mb-6 transition">
+                &larr; Back to Job Board
+            </a>
+            <div id="job-header" class="">
+                <div class="h-8 bg-gray-200 rounded w-1/3 mb-4"></div>
+                <div class="h-12 bg-gray-200 rounded w-2/3"></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto py-8 md:py-12 px-4 grid grid-cols-1 lg:grid-cols-3 gap-8 min-h-[50vh]">
+        
+        <div class="lg:col-span-2 space-y-8">
+            
+            <article class="bg-white p-6 md:p-10 rounded-2xl shadow-sm border border-gray-100">
+                <div id="job-body" class="space-y-6 text-gray-700 leading-relaxed font-medium">
+                    <div class="space-y-4">
+                        <div class="h-4 bg-gray-200 rounded w-full animate-pulse"></div>
+                        <div class="h-4 bg-gray-200 rounded w-5/6 animate-pulse"></div>
+                        <div class="h-4 bg-gray-200 rounded w-4/6 animate-pulse"></div>
+                    </div>
+                </div>
+            </article>
+
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100" id="discussion-section">
+                <h3 class="text-xl md:text-2xl font-black text-gray-900 mb-6 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path></svg>
+                    Discussion Forum
+                </h3>
+
+                <div id="comment-box" class="mb-8">
+                    </div>
+
+                <div id="comments-list" class="space-y-6">
+                    <p class="text-center text-gray-400 font-bold text-sm">Loading comments...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="space-y-6">
+            <div id="job-sidebar" class="bg-gray-50 p-6 rounded-2xl border border-gray-200 sticky top-6">
+                 </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-gray-900 text-white py-12 text-center border-t-4 border-blue-500">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-2xl font-black tracking-widest text-blue-400 mb-6">CORE RANKER</h2>
+            <p class="text-xs text-gray-600">&copy; 2026 Core Ranker. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, collection, addDoc, query, where, getDocs, initializeFirestore } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDENuRhO2xK9hZK43kFVHmbZR3rz6LHjAY",
+            authDomain: "core-ranker.firebaseapp.com",
+            projectId: "core-ranker",
+            storageBucket: "core-ranker.firebasestorage.app",
+            messagingSenderId: "13358547173",
+            appId: "1:13358547173:web:fe232275125be8e884940c"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = initializeFirestore(app, { experimentalForceLongPolling: true });
+
+        // Get Job ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const jobId = urlParams.get('id');
+
+        if(!jobId) {
+            document.getElementById('job-header').innerHTML = `<h2 class="text-3xl text-red-500 font-black">Job Not Found</h2>`;
+            document.getElementById('job-body').innerHTML = `<p>Invalid URL. Please return to the Job Board.</p>`;
+        }
+
+        // Global User State for Commenting
+        let globalUser = null;
+        let globalUserName = "Student";
+
+        // 1. AUTHENTICATION NAVBAR
+        const authMenuDesktop = document.getElementById('auth-menu-desktop');
+        const authMenuMobile = document.getElementById('auth-menu-mobile');
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                globalUser = user;
+                let initial = "S";
+                let photoUrl = null;
+                try {
+                    const userDoc = await getDoc(doc(db, "users", user.uid));
+                    if(userDoc.exists()) {
+                        globalUserName = userDoc.data().name || "Student";
+                        initial = globalUserName.charAt(0).toUpperCase();
+                        photoUrl = userDoc.data().photoURL || null;
+                    }
+                } catch(e) {}
+
+                let iconHTML = photoUrl ? `<img src="${photoUrl}" class="w-9 h-9 rounded-full object-cover border-2 border-white shadow-sm">` : `<div class="w-9 h-9 bg-white rounded-full flex items-center justify-center font-black text-blue-700 shadow-sm">${initial}</div>`;
+
+                if(authMenuDesktop) authMenuDesktop.innerHTML = `<div class="relative group border-l pl-6 border-blue-400 list-none z-50"><div class="cursor-pointer select-none">${iconHTML}</div><div class="absolute right-0 mt-0 w-40 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top pt-4"><div class="bg-white rounded-xl shadow-xl border border-gray-100 p-2 flex flex-col gap-1"><a href="dashboard.html" class="w-full px-4 py-3 text-sm font-bold text-gray-700 hover:bg-gray-50 hover:text-blue-600 text-left rounded-lg transition">Dashboard</a><div class="border-t border-gray-100"></div><button onclick="triggerLogout()" class="w-full px-4 py-3 text-sm font-bold text-red-600 hover:bg-red-50 hover:text-red-700 text-left rounded-lg transition">Logout</button></div></div></div>`;
+                if(authMenuMobile) authMenuMobile.innerHTML = `<div class="flex items-center gap-3 mb-4">${iconHTML}<span class="font-bold text-white">My Account</span></div><div class="flex flex-col gap-2"><a href="dashboard.html" class="w-full bg-blue-700 text-white font-bold py-3 rounded-xl text-center border border-blue-600 hover:bg-blue-600 transition">Dashboard</a><button onclick="triggerLogout()" class="w-full bg-red-500 text-white font-bold py-3 rounded-xl hover:bg-red-600 transition">Logout</button></div>`;
+                window.triggerLogout = () => { signOut(auth).then(() => { window.location.reload(); }); };
+
+                // Build Comment Box for Logged In User
+                document.getElementById('comment-box').innerHTML = `
+                    <div class="flex gap-4">
+                        <div class="shrink-0">${iconHTML}</div>
+                        <div class="flex-1">
+                            <textarea id="comment-input" rows="3" placeholder="Ask a question or share an update..." class="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium text-gray-800 transition"></textarea>
+                            <div class="flex justify-end mt-2">
+                                <button onclick="postComment()" id="post-comment-btn" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition shadow-sm">Post Comment</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            } else {
+                const loginBtn = `<a href="login.html" class="w-full inline-block text-center bg-white text-blue-600 px-6 py-3 rounded-full font-bold hover:bg-blue-50 shadow-sm transition">Login / Sign Up</a>`;
+                if(authMenuDesktop) authMenuDesktop.innerHTML = loginBtn;
+                if(authMenuMobile) authMenuMobile.innerHTML = loginBtn;
+
+                // Build Comment Warning for Logged Out User
+                document.getElementById('comment-box').innerHTML = `
+                    <div class="bg-gray-50 border border-gray-200 p-6 rounded-xl text-center">
+                        <p class="text-gray-500 font-medium mb-3">You must be logged in to participate in the discussion.</p>
+                        <a href="login.html" class="inline-block bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition">Log In Now</a>
+                    </div>
+                `;
+            }
+        });
+
+        // 2. FETCH JOB DETAILS
+        async function fetchJobDetails() {
+            if(!jobId) return;
+            try {
+                const docSnap = await getDoc(doc(db, "psu_jobs", jobId));
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+
+                    // Render Header
+                    document.getElementById('job-header').innerHTML = `
+                        <span class="bg-emerald-100 text-emerald-800 text-[10px] md:text-xs font-black px-3 py-1 rounded-lg uppercase tracking-widest mb-3 inline-block border border-emerald-200">${data.status}</span>
+                        <h2 class="text-4xl md:text-5xl font-black text-gray-900 tracking-tight">${data.company}</h2>
+                        <h3 class="text-xl md:text-2xl font-bold text-emerald-600 mt-2">${data.role}</h3>
+                    `;
+
+                    // Render Main Body
+                    document.getElementById('job-body').innerHTML = `
+                        <div class="max-w-none">
+                            <h4 class="text-lg font-black text-gray-900 border-b pb-2 mb-4">Detailed Notification</h4>
+                            <div class="blog-content-area ql-editor">
+                                ${data.blogContent || `<p class="mb-6">${data.details || "No overview provided."}</p>`}
+                            </div>
+                        </div>
+                    `;
+
+                    // Render Sidebar
+                    let linkBtn = data.link ? `<a href="${data.link}" target="_blank" class="block text-center w-full bg-emerald-600 text-white font-black py-4 rounded-xl hover:bg-emerald-700 transition shadow-lg hover:shadow-emerald-200 mt-6">View Official Notification</a>` : "";
+                    
+                    document.getElementById('job-sidebar').innerHTML = `
+                        <h4 class="font-black text-gray-900 mb-4 border-b pb-2">Quick Stats</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Application Date</p>
+                                <p class="font-bold text-gray-800">${data.applicationDate || "To be announced"}</p>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Total Vacancies</p>
+                                <p class="font-bold text-gray-800">${data.vacancies || "Not Disclosed"}</p>
+                            </div>
+                        </div>
+                        ${linkBtn}
+                    `;
+                } else {
+                    document.getElementById('job-header').innerHTML = `<h2 class="text-3xl text-red-500 font-black">Job Not Found</h2>`;
+                }
+            } catch(e) { console.error("Error fetching job:", e); }
+        }
+        fetchJobDetails();
+
+        // 3. COMMENTS LOGIC
+        async function fetchComments() {
+            if(!jobId) return;
+            try {
+                const snapshot = await getDocs(query(collection(db, "job_comments"), where("jobId", "==", jobId)));
+
+                let commentsArray = [];
+                snapshot.forEach(doc => { commentsArray.push(doc.data()); });
+                
+                // Sort newest first
+                commentsArray.sort((a, b) => b.timestamp - a.timestamp);
+
+                let html = "";
+                commentsArray.forEach(c => {
+                    const dateStr = c.timestamp ? new Date(c.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : "Just now";
+                    html += `
+                        <div class="flex gap-3 md:gap-4 bg-gray-50 p-4 rounded-xl border border-gray-100">
+                            <div class="w-9 h-9 md:w-10 md:h-10 bg-white rounded-full flex items-center justify-center font-black text-blue-700 shadow-sm shrink-0 border border-gray-200 text-sm">${c.userInitial || 'S'}</div>
+                            <div class="flex-1">
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <h5 class="font-bold text-gray-900 text-sm">${c.userName}</h5>
+                                    <span class="text-[10px] font-bold text-gray-400">${dateStr}</span>
+                                </div>
+                                <p class="text-gray-700 text-sm font-medium leading-relaxed">${c.text}</p>
+                            </div>
+                        </div>`;
+                });
+
+                if(commentsArray.length === 0) html = `<p class="text-gray-400 font-bold text-sm">No comments yet. Be the first to start the discussion!</p>`;
+                document.getElementById('comments-list').innerHTML = html;
+
+            } catch(e) {
+                console.error("Error fetching comments:", e);
+                document.getElementById('comments-list').innerHTML = `<p class="text-red-500 text-sm">Failed to load comments.</p>`;
+            }
+        }
+        fetchComments();
+
+        // Global function to post a comment
+        window.postComment = async () => {
+            const inputField = document.getElementById('comment-input');
+            const btn = document.getElementById('post-comment-btn');
+            if(!inputField || !btn) return;
+            
+            const text = inputField.value.trim();
+            if(!text) return;
+            if(!globalUser) { alert("Please login to comment."); return; }
+
+            btn.disabled = true;
+            try {
+                await addDoc(collection(db, "job_comments"), {
+                    jobId: jobId,
+                    userId: globalUser.uid,
+                    userName: globalUserName,
+                    userInitial: (globalUserName || "S").charAt(0).toUpperCase(),
+                    text: text,
+                    timestamp: Date.now()
+                });
+                inputField.value = "";
+                await fetchComments();
+            } catch(e) {
+                console.error(e);
+                alert("Error posting comment.");
+            } finally {
+                btn.disabled = false;
+            }
+        };
+    </script>
+</body>
+</html>
